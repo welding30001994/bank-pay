@@ -9,22 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        /* ── Reset y base ── */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
         body { background: #f0f4fb; display: flex; justify-content: center; padding: 1rem; min-height: 100vh; }
         .app-wrapper { max-width: 1100px; width: 100%; background: white; border-radius: 32px; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); padding: 2rem; border: 1px solid #e6edf6; }
-        
-        /* ── Header ── */
         .app-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e9edf4; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.8rem; }
         .app-header h1 { font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; color: #0b1a33; }
         .app-header h1 span { color: #1e6f9f; font-weight: 300; }
         .app-badge { background: #0b1a33; color: white; font-size: 0.65rem; font-weight: 600; padding: 0.3rem 1rem; border-radius: 40px; letter-spacing: 0.4px; text-transform: uppercase; white-space: nowrap; }
-
-        /* ── Grid ── */
         .grid-panel { display: grid; grid-template-columns: 1fr 1.8fr; gap: 1.5rem; align-items: start; }
         @media (max-width: 860px) { .grid-panel { grid-template-columns: 1fr; gap: 1.5rem; } }
-
-        /* ── Formulario ── */
         .form-panel { background: #f7faff; border-radius: 20px; padding: 1.2rem 1.2rem; border: 1px solid #dee8f2; }
         .form-panel h2 { font-size: 1rem; font-weight: 600; color: #0b1a33; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
         .form-grupo { margin-bottom: 1rem; }
@@ -33,8 +26,6 @@
         .form-grupo input, .form-grupo select { width: 100%; padding: 0.6rem 0.9rem; border: 1px solid #d6dee9; border-radius: 12px; font-size: 0.9rem; background: white; transition: 0.2s; -webkit-appearance: none; appearance: none; }
         .form-grupo input:focus, .form-grupo select:focus { outline: none; border-color: #1e6f9f; box-shadow: 0 0 0 3px rgba(30,111,159,0.10); }
         .form-grupo .hint { font-size: 0.65rem; color: #5a6f8a; margin-top: 0.2rem; }
-
-        /* ── Planes ── */
         .plan-options { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.2rem; }
         .plan-option { flex: 1 1 80px; min-width: 70px; background: white; border: 2px solid #d6dee9; border-radius: 14px; padding: 0.5rem 0.3rem; text-align: center; cursor: pointer; transition: all 0.15s; }
         .plan-option:hover { border-color: #8bb3d0; }
@@ -43,16 +34,12 @@
         .plan-option .plan-precio { font-weight: 700; font-size: 1rem; color: #1e6f9f; }
         .plan-option .plan-dias { font-size: 0.6rem; color: #3a4a62; background: #e9eff6; padding: 0.05rem 0.5rem; border-radius: 40px; display: inline-block; margin-top: 2px; }
         .plan-option.seleccionado { border-color: #1e6f9f; background: #e6f0fa; box-shadow: 0 4px 10px rgba(30,111,159,0.08); }
-
-        /* ── Botones ── */
         .acciones { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.2rem; }
         .btn { padding: 0.6rem 1.5rem; border-radius: 60px; font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; flex: 1 1 auto; text-align: center; }
         .btn-primario { background: #0b1a33; color: white; box-shadow: 0 6px 14px rgba(11,26,51,0.15); }
         .btn-primario:hover { background: #1e2f4a; transform: scale(1.02); }
         .btn-secundario { background: transparent; border: 1px solid #b4c4db; color: #2a3b55; }
         .btn-secundario:hover { background: #f0f5fe; }
-
-        /* ── Panel contrato ── */
         .contrato-panel { background: #fcfcfc; border-radius: 20px; padding: 1.2rem 1.2rem; border: 1px solid #dee8f2; }
         .contrato-panel .header-con-boton { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem; }
         .contrato-panel .header-con-boton h2 { font-size: 1rem; font-weight: 600; color: #0b1a33; margin: 0; }
@@ -60,8 +47,6 @@
         .btn-pdf-header:hover { background: #0b3b5a; transform: scale(1.02); }
         .loader-pdf { display: inline-block; width: 16px; height: 16px; border: 3px solid rgba(255,255,255,0.15); border-radius: 50%; border-top-color: #1e6f9f; animation: spin 0.8s linear infinite; margin-right: 6px; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ── Vista previa ── */
         .contrato-preview { background: white; padding: 1.2rem 1.2rem; border-radius: 16px; border: 1px solid #e6edf6; font-size: 0.85rem; line-height: 1.7; color: #1f2a3f; max-height: 600px; overflow-y: auto; }
         .contrato-preview strong { color: #0b1a33; }
         .contrato-preview .clausula { margin-bottom: 1.2rem; }
@@ -78,90 +63,13 @@
         .contrato-preview .monedero-box .label { font-weight: 600; color: #0b1a33; }
         .contrato-preview .monedero-box .direccion { font-family: monospace; font-size: 0.8rem; background: white; padding: 0.2rem 0.6rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all; }
         .nota-legal { margin-top: 1rem; font-size: 0.7rem; color: #7a6b5d; background: #f4efea; padding: 0.5rem 1rem; border-radius: 40px; text-align: center; border: 1px solid #e1d5c9; }
-
-        /* ── Separador de página ── */
         .page-break { page-break-after: always; border-bottom: 2px dashed #d0dcec; margin: 1.2rem 0; padding-bottom: 0.8rem; text-align: center; color: #8a9bb0; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; }
         .page-break::after { content: "— Continuación —"; }
         @media print { .page-break { border-bottom: none; margin: 0; padding: 0; page-break-after: always; } .page-break::after { content: ""; } }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 768px) {
-            .app-wrapper { padding: 1rem; border-radius: 20px; }
-            .app-header h1 { font-size: 1.3rem; }
-            .app-badge { font-size: 0.55rem; padding: 0.2rem 0.8rem; }
-            .form-panel { padding: 1rem; }
-            .contrato-panel { padding: 1rem; }
-            .contrato-preview { padding: 0.8rem; font-size: 0.8rem; max-height: 500px; }
-            .contrato-preview .clausula h3 { font-size: 0.85rem; }
-            .contrato-preview .advertencia .monto { font-size: 1.1rem; }
-            .plan-options { gap: 0.4rem; }
-            .plan-option { flex: 1 1 60px; min-width: 60px; padding: 0.4rem 0.2rem; }
-            .plan-option .plan-nombre { font-size: 0.7rem; }
-            .plan-option .plan-precio { font-size: 0.85rem; }
-            .plan-option .plan-dias { font-size: 0.5rem; }
-            .btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
-            .btn-pdf-header { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
-            .contrato-panel .header-con-boton h2 { font-size: 0.9rem; }
-            .contrato-preview .firma-line { flex-direction: column; gap: 0.8rem; }
-            .contrato-preview .firma-bloco { flex: 1 1 auto; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 0.5rem; }
-            .app-wrapper { padding: 0.8rem; border-radius: 16px; }
-            .app-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-            .app-header h1 { font-size: 1.1rem; }
-            .app-badge { font-size: 0.5rem; padding: 0.15rem 0.6rem; }
-            .grid-panel { gap: 1rem; }
-            .form-panel { padding: 0.8rem; }
-            .form-panel h2 { font-size: 0.9rem; }
-            .form-grupo { margin-bottom: 0.7rem; }
-            .form-grupo label { font-size: 0.7rem; }
-            .form-grupo input, .form-grupo select { padding: 0.5rem 0.7rem; font-size: 0.8rem; border-radius: 10px; }
-            .contrato-panel { padding: 0.8rem; }
-            .contrato-preview { padding: 0.6rem; font-size: 0.75rem; max-height: 400px; border-radius: 12px; }
-            .contrato-preview .clausula { margin-bottom: 0.8rem; }
-            .contrato-preview .clausula h3 { font-size: 0.8rem; padding-left: 0.5rem; }
-            .contrato-preview .clausula ul { padding-left: 1rem; }
-            .contrato-preview .advertencia { padding: 0.5rem 0.7rem; margin: 0.5rem 0; }
-            .contrato-preview .advertencia .monto { font-size: 1rem; }
-            .contrato-preview .firma-line { margin-top: 0.8rem; padding-top: 0.8rem; }
-            .contrato-preview .firma-bloco p { font-size: 0.75rem; }
-            .contrato-preview .monedero-box { padding: 0.4rem 0.6rem; }
-            .contrato-preview .monedero-box .direccion { font-size: 0.7rem; padding: 0.15rem 0.4rem; }
-            .plan-options { gap: 0.3rem; }
-            .plan-option { flex: 1 1 50px; min-width: 50px; padding: 0.3rem 0.15rem; border-radius: 10px; }
-            .plan-option .plan-nombre { font-size: 0.6rem; }
-            .plan-option .plan-precio { font-size: 0.75rem; }
-            .plan-option .plan-dias { font-size: 0.45rem; padding: 0.05rem 0.3rem; }
-            .acciones { flex-direction: column; gap: 0.5rem; }
-            .btn { padding: 0.5rem; font-size: 0.75rem; }
-            .contrato-panel .header-con-boton { flex-direction: column; align-items: stretch; gap: 0.4rem; }
-            .contrato-panel .header-con-boton h2 { font-size: 0.85rem; }
-            .btn-pdf-header { width: 100%; text-align: center; padding: 0.4rem; font-size: 0.7rem; }
-            .page-break { margin: 0.8rem 0; padding-bottom: 0.5rem; font-size: 0.55rem; }
-            .nota-legal { font-size: 0.6rem; padding: 0.4rem 0.6rem; }
-        }
-
-        @media (max-width: 360px) {
-            .app-wrapper { padding: 0.5rem; }
-            .app-header h1 { font-size: 0.95rem; }
-            .contrato-preview { font-size: 0.7rem; padding: 0.4rem; }
-            .contrato-preview .clausula h3 { font-size: 0.7rem; }
-            .plan-option .plan-nombre { font-size: 0.55rem; }
-            .plan-option .plan-precio { font-size: 0.65rem; }
-            .form-grupo input, .form-grupo select { font-size: 0.7rem; padding: 0.4rem 0.5rem; }
-        }
-
-        /* ── Estilos para impresión ── */
-        @media print { 
-            .form-panel, .acciones, .app-header .app-badge, .nota-legal, .btn-pdf-header { display: none !important; } 
-            .grid-panel { display: block; } 
-            .contrato-panel { border: none; padding: 0; } 
-            .contrato-preview { max-height: none; overflow: visible; border: none; padding: 0; } 
-            .app-wrapper { box-shadow: none; border: none; padding: 0; }
-            body { background: white; padding: 0; }
-        }
+        @media (max-width: 768px) { .app-wrapper { padding: 1rem; border-radius: 20px; } .app-header h1 { font-size: 1.3rem; } .app-badge { font-size: 0.55rem; padding: 0.2rem 0.8rem; } .form-panel { padding: 1rem; } .contrato-panel { padding: 1rem; } .contrato-preview { padding: 0.8rem; font-size: 0.8rem; max-height: 500px; } .contrato-preview .clausula h3 { font-size: 0.85rem; } .contrato-preview .advertencia .monto { font-size: 1.1rem; } .plan-options { gap: 0.4rem; } .plan-option { flex: 1 1 60px; min-width: 60px; padding: 0.4rem 0.2rem; } .plan-option .plan-nombre { font-size: 0.7rem; } .plan-option .plan-precio { font-size: 0.85rem; } .plan-option .plan-dias { font-size: 0.5rem; } .btn { padding: 0.5rem 1rem; font-size: 0.8rem; } .btn-pdf-header { font-size: 0.65rem; padding: 0.3rem 0.8rem; } .contrato-panel .header-con-boton h2 { font-size: 0.9rem; } .contrato-preview .firma-line { flex-direction: column; gap: 0.8rem; } .contrato-preview .firma-bloco { flex: 1 1 auto; } }
+        @media (max-width: 480px) { body { padding: 0.5rem; } .app-wrapper { padding: 0.8rem; border-radius: 16px; } .app-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; } .app-header h1 { font-size: 1.1rem; } .app-badge { font-size: 0.5rem; padding: 0.15rem 0.6rem; } .grid-panel { gap: 1rem; } .form-panel { padding: 0.8rem; } .form-panel h2 { font-size: 0.9rem; } .form-grupo { margin-bottom: 0.7rem; } .form-grupo label { font-size: 0.7rem; } .form-grupo input, .form-grupo select { padding: 0.5rem 0.7rem; font-size: 0.8rem; border-radius: 10px; } .contrato-panel { padding: 0.8rem; } .contrato-preview { padding: 0.6rem; font-size: 0.75rem; max-height: 400px; border-radius: 12px; } .contrato-preview .clausula { margin-bottom: 0.8rem; } .contrato-preview .clausula h3 { font-size: 0.8rem; padding-left: 0.5rem; } .contrato-preview .clausula ul { padding-left: 1rem; } .contrato-preview .advertencia { padding: 0.5rem 0.7rem; margin: 0.5rem 0; } .contrato-preview .advertencia .monto { font-size: 1rem; } .contrato-preview .firma-line { margin-top: 0.8rem; padding-top: 0.8rem; } .contrato-preview .firma-bloco p { font-size: 0.75rem; } .contrato-preview .monedero-box { padding: 0.4rem 0.6rem; } .contrato-preview .monedero-box .direccion { font-size: 0.7rem; padding: 0.15rem 0.4rem; } .plan-options { gap: 0.3rem; } .plan-option { flex: 1 1 50px; min-width: 50px; padding: 0.3rem 0.15rem; border-radius: 10px; } .plan-option .plan-nombre { font-size: 0.6rem; } .plan-option .plan-precio { font-size: 0.75rem; } .plan-option .plan-dias { font-size: 0.45rem; padding: 0.05rem 0.3rem; } .acciones { flex-direction: column; gap: 0.5rem; } .btn { padding: 0.5rem; font-size: 0.75rem; } .contrato-panel .header-con-boton { flex-direction: column; align-items: stretch; gap: 0.4rem; } .contrato-panel .header-con-boton h2 { font-size: 0.85rem; } .btn-pdf-header { width: 100%; text-align: center; padding: 0.4rem; font-size: 0.7rem; } .page-break { margin: 0.8rem 0; padding-bottom: 0.5rem; font-size: 0.55rem; } .nota-legal { font-size: 0.6rem; padding: 0.4rem 0.6rem; } }
+        @media (max-width: 360px) { .app-wrapper { padding: 0.5rem; } .app-header h1 { font-size: 0.95rem; } .contrato-preview { font-size: 0.7rem; padding: 0.4rem; } .contrato-preview .clausula h3 { font-size: 0.7rem; } .plan-option .plan-nombre { font-size: 0.55rem; } .plan-option .plan-precio { font-size: 0.65rem; } .form-grupo input, .form-grupo select { font-size: 0.7rem; padding: 0.4rem 0.5rem; } }
+        @media print { .form-panel, .acciones, .app-header .app-badge, .nota-legal, .btn-pdf-header { display: none !important; } .grid-panel { display: block; } .contrato-panel { border: none; padding: 0; } .contrato-preview { max-height: none; overflow: visible; border: none; padding: 0; } .app-wrapper { box-shadow: none; border: none; padding: 0; } body { background: white; padding: 0; } }
     </style>
 </head>
 <body>
@@ -175,7 +83,6 @@
 
     <div class="grid-panel">
 
-        <!-- FORMULARIO -->
         <div class="form-panel">
             <h2>📋 Datos del contrato</h2>
             <form id="formDatos">
@@ -244,7 +151,6 @@
                     <label>📅 Fecha <i>*</i></label>
                     <input type="date" id="fecha" required />
                 </div>
-
                 <div class="acciones">
                     <button type="button" class="btn btn-secundario" id="limpiarBtn">⟲ Limpiar</button>
                     <button type="submit" class="btn btn-primario">✍️ Firmar contrato</button>
@@ -252,7 +158,6 @@
             </form>
         </div>
 
-        <!-- VISTA PREVIA DEL CONTRATO -->
         <div class="contrato-panel">
             <div class="header-con-boton">
                 <h2>📄 Vista previa <span style="font-size:0.65rem; font-weight:400; color:#5a6f8a;">(actualiza en vivo)</span></h2>
@@ -327,6 +232,7 @@
             return `
                 <div style="font-family: 'Inter', sans-serif; max-width: 100%;">
 
+                    <!-- PÁGINA 1 -->
                     <div style="text-align: center; border-bottom: 2px solid #d0dcec; padding-bottom: 0.4rem; margin-bottom: 1rem;">
                         <strong style="font-size: 1.2rem; color: #0b1a33;">CONTRATO DE COMPROMISO</strong><br/>
                         <span style="font-size: 0.7rem; color: #3a4a62;">de desembolso y trámite ante la Banca Central</span><br/>
@@ -369,8 +275,14 @@
                         </p>
                     </div>
 
+                    <div style="margin-top: 1.5rem; padding-top: 0.6rem; border-top: 1px solid #e6edf6; text-align: center; font-size: 0.6rem; color: #8a9bb0; letter-spacing: 1px;">
+                        Documento generado por Upcomer · Contrato de desembolso · Página 1 de 3
+                    </div>
+
+                    <!-- SALTO A PÁGINA 2 -->
                     <div class="page-break"></div>
 
+                    <!-- PÁGINA 2 -->
                     <div class="clausula">
                         <h3>TERCERA. — Advertencia por incumplimiento</h3>
                         <div class="advertencia" style="font-size: 0.85rem;">
@@ -397,8 +309,6 @@
                         </div>
                     </div>
 
-                    <div class="page-break"></div>
-
                     <div class="clausula">
                         <h3>CUARTA. — Forma de pago</h3>
                         <p style="font-size: 0.85rem;">
@@ -417,6 +327,14 @@
                         </p>
                     </div>
 
+                    <div style="margin-top: 1.5rem; padding-top: 0.6rem; border-top: 1px solid #e6edf6; text-align: center; font-size: 0.6rem; color: #8a9bb0; letter-spacing: 1px;">
+                        Documento generado por Upcomer · Contrato de desembolso · Página 2 de 3
+                    </div>
+
+                    <!-- SALTO A PÁGINA 3 -->
+                    <div class="page-break"></div>
+
+                    <!-- PÁGINA 3 -->
                     <div class="clausula">
                         <h3>QUINTA. — Aceptación y firma</h3>
                         <p style="font-size: 0.85rem;">
@@ -456,7 +374,7 @@
                     </div>
 
                     <div style="margin-top: 1.5rem; padding-top: 0.6rem; border-top: 1px solid #e6edf6; text-align: center; font-size: 0.6rem; color: #8a9bb0; letter-spacing: 1px;">
-                        Documento generado por Upcomer · Contrato de desembolso · Página 1 de 3
+                        Documento generado por Upcomer · Contrato de desembolso · Página 3 de 3
                     </div>
 
                 </div>
