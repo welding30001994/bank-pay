@@ -9,841 +9,230 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        /* ===== RESET Y BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #f0f4fb;
-            display: flex;
-            justify-content: center;
-            padding: 1rem;
-            min-height: 100vh;
-        }
-
-        /* ===== WRAPPER PRINCIPAL ===== */
-        .app-wrapper {
-            max-width: 1100px;
-            width: 100%;
-            background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-            padding: 2rem 1.8rem;
-            border: 1px solid #e6edf6;
-        }
-
-        /* ===== HEADER ===== */
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #e9edf4;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .app-header h1 {
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: -0.5px;
-            color: #0b1a33;
-        }
-
-        .app-header h1 span {
-            color: #1e6f9f;
-            font-weight: 300;
-        }
-
-        .app-badge {
-            background: #0b1a33;
-            color: white;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 0.35rem 1.2rem;
-            border-radius: 40px;
-            letter-spacing: 0.4px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        /* ===== GRID ===== */
-        .grid-panel {
-            display: grid;
-            grid-template-columns: 1fr 1.8fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        /* ===== FORMULARIO ===== */
-        .form-panel {
-            background: #f7faff;
-            border-radius: 24px;
-            padding: 1.5rem 1.2rem;
-            border: 1px solid #dee8f2;
-        }
-
-        .form-panel h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #0b1a33;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-grupo {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-grupo label {
-            font-weight: 500;
-            font-size: 0.82rem;
-            color: #1f2a3f;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 0.3rem;
-            flex-wrap: wrap;
-        }
-
-        .form-grupo label i {
-            color: #b91c1c;
-            font-style: normal;
-            font-weight: 600;
-        }
-
-        .form-grupo input,
-        .form-grupo select {
-            width: 100%;
-            padding: 0.7rem 1rem;
-            border: 1px solid #d6dee9;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            background: white;
-            transition: 0.2s;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        .form-grupo input:focus,
-        .form-grupo select:focus {
-            outline: none;
-            border-color: #1e6f9f;
-            box-shadow: 0 0 0 3px rgba(30, 111, 159, 0.10);
-        }
-
-        .form-grupo .hint {
-            font-size: 0.7rem;
-            color: #5a6f8a;
-            margin-top: 0.2rem;
-        }
-
-        /* ===== PLANES ===== */
-        .plan-options {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-top: 0.3rem;
-        }
-
-        .plan-option {
-            flex: 1 1 100px;
-            background: white;
-            border: 2px solid #d6dee9;
-            border-radius: 16px;
-            padding: 0.6rem 0.4rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s;
-            min-width: 80px;
-        }
-
-        .plan-option:hover {
-            border-color: #8bb3d0;
-        }
-
-        .plan-option input[type="radio"] {
-            display: none;
-        }
-
-        .plan-option .plan-nombre {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #0b1a33;
-        }
-
-        .plan-option .plan-precio {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #1e6f9f;
-        }
-
-        .plan-option .plan-dias {
-            font-size: 0.6rem;
-            color: #3a4a62;
-            background: #e9eff6;
-            padding: 0.1rem 0.6rem;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 2px;
-        }
-
-        .plan-option.seleccionado {
-            border-color: #1e6f9f;
-            background: #e6f0fa;
-            box-shadow: 0 4px 10px rgba(30, 111, 159, 0.08);
-        }
-
-        /* ===== BOTONES ===== */
-        .acciones {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            padding: 0.7rem 2rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
-            flex: 1 1 auto;
-            text-align: center;
-        }
-
-        .btn-primario {
-            background: #0b1a33;
-            color: white;
-            box-shadow: 0 6px 14px rgba(11, 26, 51, 0.15);
-        }
-
-        .btn-primario:hover {
-            background: #1e2f4a;
-            transform: scale(1.02);
-        }
-
-        .btn-secundario {
-            background: transparent;
-            border: 1px solid #b4c4db;
-            color: #2a3b55;
-        }
-
-        .btn-secundario:hover {
-            background: #f0f5fe;
-        }
-
-        .btn-pdf-header {
-            background: #1e6f9f;
-            color: white;
-            border: none;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .btn-pdf-header:hover {
-            background: #0b3b5a;
-            transform: scale(1.02);
-        }
-
-        .loader-pdf {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            border-top-color: #1e6f9f;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ===== CONTRATO ===== */
-        .contrato-panel {
-            background: #fcfcfc;
-            border-radius: 24px;
-            padding: 1.5rem 1.5rem;
-            border: 1px solid #dee8f2;
-        }
-
-        .contrato-panel .header-con-boton {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.2rem;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .contrato-panel .header-con-boton h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #0b1a33;
-            margin: 0;
-        }
-
-        .contrato-preview {
-            background: white;
-            padding: 1.5rem 1.5rem;
-            border-radius: 18px;
-            border: 1px solid #e6edf6;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: #1f2a3f;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .contrato-preview strong {
-            color: #0b1a33;
-        }
-
-        .contrato-preview .clausula {
-            margin-bottom: 1.4rem;
-        }
-
-        .contrato-preview .clausula h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #0b1a33;
-            margin-bottom: 0.2rem;
-            border-left: 4px solid #1e6f9f;
-            padding-left: 0.8rem;
-        }
-
-        .contrato-preview .clausula ul {
-            padding-left: 1.5rem;
-            list-style: none;
-            margin-top: 0.2rem;
-        }
-
-        .contrato-preview .clausula ul li::before {
-            content: "—";
-            color: #1e6f9f;
-            margin-right: 0.5rem;
-        }
-
-        .contrato-preview .advertencia {
-            background: #f7f1ea;
-            border-left: 6px solid #b8863a;
-            padding: 0.8rem 1.2rem;
-            margin: 0.8rem 0 1.2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .contrato-preview .advertencia .monto {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #a0672b;
-        }
-
-        .contrato-preview .firma-line {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-            border-top: 2px solid #e6edf6;
-            padding-top: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .contrato-preview .firma-bloco {
-            flex: 1 1 180px;
-            min-width: 140px;
-        }
-
-        .contrato-preview .firma-bloco .linea {
-            border-bottom: 1.5px solid #b3a18e;
-            width: 100%;
-            height: 1.2rem;
-            margin: 0.3rem 0 0.1rem;
-        }
-
-        .contrato-preview .firma-bloco .label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #8a7a6a;
-        }
-
-        .contrato-preview .monedero-box {
-            background: #f0f7fe;
-            border: 1px solid #c8dce8;
-            border-radius: 12px;
-            padding: 0.8rem 1.2rem;
-            margin: 0.8rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .contrato-preview .monedero-box .label {
-            font-weight: 600;
-            color: #0b1a33;
-        }
-
-        .contrato-preview .monedero-box .direccion {
-            font-family: monospace;
-            font-size: 0.8rem;
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            border: 1px solid #d6dee9;
-            word-break: break-all;
-        }
-
-        .nota-legal {
-            margin-top: 1.2rem;
-            font-size: 0.7rem;
-            color: #7a6b5d;
-            background: #f4efea;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            text-align: center;
-            border: 1px solid #e1d5c9;
-        }
-
-        /* ======================================== */
-        /* ===== MEDIA QUERIES (RESPONSIVE) ===== */
-        /* ======================================== */
-
-        /* --- Tablets y pantallas medianas --- */
-        @media (max-width: 992px) {
-            .app-wrapper {
-                padding: 1.5rem 1.2rem;
-            }
-
-            .grid-panel {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-
-        /* --- Móviles grandes --- */
-        @media (max-width: 768px) {
-            .app-wrapper {
-                padding: 1rem 0.8rem;
-                border-radius: 20px;
-            }
-
-            .app-header h1 {
-                font-size: 1.4rem;
-            }
-
-            .app-badge {
-                font-size: 0.55rem;
-                padding: 0.25rem 1rem;
-            }
-
-            .form-panel {
-                padding: 1.2rem 0.8rem;
-                border-radius: 16px;
-            }
-
-            .form-panel h2 {
-                font-size: 1rem;
-            }
-
-            .form-grupo input,
-            .form-grupo select {
-                font-size: 0.9rem;
-                padding: 0.6rem 0.8rem;
-                border-radius: 12px;
-            }
-
-            .plan-options {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .plan-option {
-                flex: 1 1 auto;
-                padding: 0.5rem 0.3rem;
-                min-width: unset;
-            }
-
-            .contrato-panel {
-                padding: 1rem 0.8rem;
-                border-radius: 16px;
-            }
-
-            .contrato-panel .header-con-boton {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.6rem;
-            }
-
-            .contrato-panel .header-con-boton h2 {
-                font-size: 1rem;
-                text-align: center;
-            }
-
-            .btn-pdf-header {
-                width: 100%;
-                text-align: center;
-                padding: 0.5rem;
-                font-size: 0.8rem;
-                white-space: normal;
-            }
-
-            .contrato-preview {
-                padding: 1rem 0.8rem;
-                font-size: 0.8rem;
-                max-height: 500px;
-            }
-
-            .contrato-preview .clausula h3 {
-                font-size: 0.9rem;
-            }
-
-            .contrato-preview .advertencia .monto {
-                font-size: 1.1rem;
-            }
-
-            .contrato-preview .firma-line {
-                flex-direction: column;
-            }
-
-            .contrato-preview .firma-bloco {
-                flex: 1 1 auto;
-                min-width: unset;
-            }
-
-            .contrato-preview .monedero-box {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .contrato-preview .monedero-box .direccion {
-                font-size: 0.7rem;
-                word-break: break-all;
-            }
-
-            .acciones {
-                flex-direction: column;
-                gap: 0.6rem;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-                padding: 0.7rem 1rem;
-                font-size: 0.85rem;
-            }
-
-            .nota-legal {
-                font-size: 0.6rem;
-                padding: 0.5rem 0.8rem;
-                border-radius: 20px;
-            }
-        }
-
-        /* --- Móviles pequeños (menos de 400px) --- */
-        @media (max-width: 400px) {
-            .app-wrapper {
-                padding: 0.6rem 0.4rem;
-                border-radius: 16px;
-            }
-
-            .app-header h1 {
-                font-size: 1.1rem;
-            }
-
-            .app-badge {
-                font-size: 0.5rem;
-                padding: 0.2rem 0.8rem;
-            }
-
-            .form-panel {
-                padding: 1rem 0.6rem;
-            }
-
-            .form-grupo {
-                margin-bottom: 0.8rem;
-            }
-
-            .form-grupo label {
-                font-size: 0.75rem;
-            }
-
-            .form-grupo input,
-            .form-grupo select {
-                font-size: 0.82rem;
-                padding: 0.5rem 0.7rem;
-                border-radius: 10px;
-            }
-
-            .plan-option {
-                padding: 0.4rem 0.2rem;
-            }
-
-            .plan-option .plan-nombre {
-                font-size: 0.75rem;
-            }
-            .plan-option .plan-precio {
-                font-size: 0.95rem;
-            }
-
-            .contrato-panel {
-                padding: 0.8rem 0.4rem;
-            }
-
-            .contrato-preview {
-                padding: 0.8rem 0.6rem;
-                font-size: 0.72rem;
-                max-height: 400px;
-            }
-
-            .contrato-preview .clausula h3 {
-                font-size: 0.8rem;
-                padding-left: 0.5rem;
-            }
-
-            .contrato-preview .advertencia .monto {
-                font-size: 1rem;
-            }
-
-            .btn {
-                font-size: 0.8rem;
-                padding: 0.6rem 0.8rem;
-            }
-
-            .btn-pdf-header {
-                font-size: 0.7rem;
-                padding: 0.4rem;
-            }
-
-            .nota-legal {
-                font-size: 0.55rem;
-                padding: 0.4rem 0.6rem;
-            }
-        }
-
-        /* ===== IMPRESIÓN ===== */
-        @media print {
-            .form-panel,
-            .acciones,
-            .app-header .app-badge,
-            .nota-legal,
-            .btn-pdf-header {
-                display: none !important;
-            }
-
-            .grid-panel {
-                display: block;
-            }
-
-            .contrato-panel {
-                border: none;
-                padding: 0;
-            }
-
-            .contrato-preview {
-                max-height: none;
-                overflow: visible;
-                border: none;
-                padding: 0.2in;
-            }
-
-            .app-wrapper {
-                box-shadow: none;
-                border: none;
-                padding: 0;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background: #f0f4fb; display: flex; justify-content: center; padding: 2rem 1rem; min-height: 100vh; }
+        .app-wrapper { max-width: 1100px; width: 100%; background: white; border-radius: 32px; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); padding: 2.5rem 2.8rem; border: 1px solid #e6edf6; }
+        .app-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e9edf4; padding-bottom: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .app-header h1 { font-weight: 700; font-size: 2rem; letter-spacing: -0.5px; color: #0b1a33; }
+        .app-header h1 span { color: #1e6f9f; font-weight: 300; }
+        .app-badge { background: #0b1a33; color: white; font-size: 0.7rem; font-weight: 600; padding: 0.4rem 1.4rem; border-radius: 40px; letter-spacing: 0.4px; text-transform: uppercase; }
+        .grid-panel { display: grid; grid-template-columns: 1fr 1.8fr; gap: 2rem; align-items: start; }
+        @media (max-width: 860px) { .grid-panel { grid-template-columns: 1fr; gap: 2.5rem; } }
+        .form-panel { background: #f7faff; border-radius: 24px; padding: 1.8rem 1.5rem; border: 1px solid #dee8f2; }
+        .form-panel h2 { font-size: 1.1rem; font-weight: 600; color: #0b1a33; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .form-grupo { margin-bottom: 1.2rem; }
+        .form-grupo label { font-weight: 500; font-size: 0.82rem; color: #1f2a3f; display: flex; align-items: center; gap: 6px; margin-bottom: 0.3rem; }
+        .form-grupo label i { color: #b91c1c; font-style: normal; font-weight: 600; }
+        .form-grupo input, .form-grupo select { width: 100%; padding: 0.7rem 1rem; border: 1px solid #d6dee9; border-radius: 14px; font-size: 0.95rem; background: white; transition: 0.2s; }
+        .form-grupo input:focus, .form-grupo select:focus { outline: none; border-color: #1e6f9f; box-shadow: 0 0 0 3px rgba(30,111,159,0.10); }
+        .form-grupo .hint { font-size: 0.7rem; color: #5a6f8a; margin-top: 0.2rem; }
+        .plan-options { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.3rem; }
+        .plan-option { flex: 1 1 100px; background: white; border: 2px solid #d6dee9; border-radius: 16px; padding: 0.6rem 0.4rem; text-align: center; cursor: pointer; transition: all 0.15s; }
+        .plan-option:hover { border-color: #8bb3d0; }
+        .plan-option input[type="radio"] { display: none; }
+        .plan-option .plan-nombre { font-weight: 600; font-size: 0.9rem; color: #0b1a33; }
+        .plan-option .plan-precio { font-weight: 700; font-size: 1.1rem; color: #1e6f9f; }
+        .plan-option .plan-dias { font-size: 0.65rem; color: #3a4a62; background: #e9eff6; padding: 0.1rem 0.6rem; border-radius: 40px; display: inline-block; margin-top: 2px; }
+        .plan-option.seleccionado { border-color: #1e6f9f; background: #e6f0fa; box-shadow: 0 4px 10px rgba(30,111,159,0.08); }
+        .acciones { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+        .btn { padding: 0.7rem 2rem; border-radius: 60px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
+        .btn-primario { background: #0b1a33; color: white; box-shadow: 0 6px 14px rgba(11,26,51,0.15); }
+        .btn-primario:hover { background: #1e2f4a; transform: scale(1.02); }
+        .btn-secundario { background: transparent; border: 1px solid #b4c4db; color: #2a3b55; }
+        .btn-secundario:hover { background: #f0f5fe; }
+        .btn-pdf-header { background: #1e6f9f; color: white; border: none; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-pdf-header:hover { background: #0b3b5a; transform: scale(1.02); }
+        .loader-pdf { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.15); border-radius: 50%; border-top-color: #1e6f9f; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .contrato-panel { background: #fcfcfc; border-radius: 24px; padding: 1.8rem 2rem; border: 1px solid #dee8f2; }
+        .contrato-panel .header-con-boton { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem; }
+        .contrato-panel .header-con-boton h2 { font-size: 1.1rem; font-weight: 600; color: #0b1a33; margin: 0; }
+        .contrato-preview { background: white; padding: 1.8rem 2rem; border-radius: 18px; border: 1px solid #e6edf6; font-size: 0.9rem; line-height: 1.7; color: #1f2a3f; max-height: 600px; overflow-y: auto; }
+        .contrato-preview strong { color: #0b1a33; }
+        .contrato-preview .clausula { margin-bottom: 1.4rem; }
+        .contrato-preview .clausula h3 { font-size: 1rem; font-weight: 700; color: #0b1a33; margin-bottom: 0.2rem; border-left: 4px solid #1e6f9f; padding-left: 0.8rem; }
+        .contrato-preview .clausula ul { padding-left: 2rem; list-style: none; margin-top: 0.2rem; }
+        .contrato-preview .clausula ul li::before { content: "—"; color: #1e6f9f; margin-right: 0.5rem; }
+        .contrato-preview .advertencia { background: #f7f1ea; border-left: 6px solid #b8863a; padding: 1rem 1.5rem; margin: 1rem 0 1.2rem 0; border-radius: 0 8px 8px 0; }
+        .contrato-preview .advertencia .monto { font-weight: 700; font-size: 1.4rem; color: #a0672b; }
+        .contrato-preview .firma-line { display: flex; justify-content: space-between; margin-top: 1.5rem; border-top: 2px solid #e6edf6; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .contrato-preview .firma-bloco { flex: 1 1 180px; }
+        .contrato-preview .firma-bloco .linea { border-bottom: 1.5px solid #b3a18e; width: 100%; height: 1.2rem; margin: 0.3rem 0 0.1rem; }
+        .contrato-preview .firma-bloco .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8a7a6a; }
+        .contrato-preview .monedero-box { background: #f0f7fe; border: 1px solid #c8dce8; border-radius: 12px; padding: 0.8rem 1.2rem; margin: 1rem 0; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .contrato-preview .monedero-box .label { font-weight: 600; color: #0b1a33; }
+        .contrato-preview .monedero-box .direccion { font-family: monospace; font-size: 0.85rem; background: white; padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all; }
+        .nota-legal { margin-top: 1.2rem; font-size: 0.75rem; color: #7a6b5d; background: #f4efea; padding: 0.6rem 1.2rem; border-radius: 40px; text-align: center; border: 1px solid #e1d5c9; }
+        @media (max-width: 600px) { .app-wrapper { padding: 1.5rem; } .contrato-preview { padding: 1rem; font-size: 0.8rem; } .contrato-preview .firma-line { flex-direction: column; } .plan-options { flex-direction: column; } .plan-option { flex: 1 1 auto; } .acciones { flex-direction: column; align-items: stretch; } .btn { text-align: center; } .contrato-panel .header-con-boton { flex-direction: column; align-items: flex-start; } }
+        @media print { .form-panel, .acciones, .app-header .app-badge, .nota-legal, .btn-pdf-header { display: none !important; } .grid-panel { display: block; } .contrato-panel { border: none; padding: 0; } .contrato-preview { max-height: none; overflow: visible; border: none; padding: 0.2in; } }
     </style>
 </head>
 <body>
 
-    <div class="app-wrapper">
+<div class="app-wrapper">
 
-        <div class="app-header">
-            <h1>Upcomer <span>·</span> desembolso</h1>
-            <div class="app-badge">Contrato Banca Central</div>
+    <div class="app-header">
+        <h1>Upcomer <span>·</span> desembolso</h1>
+        <div class="app-badge">Contrato Banca Central</div>
+    </div>
+
+    <div class="grid-panel">
+
+        <!-- FORMULARIO -->
+        <div class="form-panel">
+            <h2>📋 Datos del contrato</h2>
+            <form id="formDatos">
+                <div class="form-grupo">
+                    <label>👤 Nombre <i>*</i></label>
+                    <input type="text" id="nombre" placeholder="Nombre del beneficiario" required />
+                </div>
+                <div class="form-grupo">
+                    <label>📇 Apellido <i>*</i></label>
+                    <input type="text" id="apellido" placeholder="Apellido" required />
+                </div>
+                <div class="form-grupo">
+                    <label>🆔 Cédula / Pasaporte <i>*</i></label>
+                    <input type="text" id="cedula" placeholder="Ej: 1234567890" required />
+                </div>
+                <div class="form-grupo">
+                    <label>🏦 Banco para acreditación <i>*</i></label>
+                    <select id="banco" required>
+                        <option value="">Seleccione</option>
+                        <option value="Banco Central">Banco Central</option>
+                        <option value="Banco Pichincha">Banco Pichincha</option>
+                        <option value="Banco Guayaquil">Banco Guayaquil</option>
+                        <option value="Banco Pacífico">Banco Pacífico</option>
+                        <option value="Banco Internacional">Banco Internacional</option>
+                        <option value="Banco Bolivariano">Banco Bolivariano</option>
+                        <option value="Banco Produbanco">Banco Produbanco</option>
+                        <option value="Banco del Austro">Banco del Austro</option>
+                        <option value="Banco Solidario">Banco Solidario</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-grupo">
+                    <label>🔢 Número de cuenta <i>*</i></label>
+                    <input type="text" id="numeroCuenta" placeholder="Ej: 1234567890" required />
+                    <div class="hint">* Número de cuenta bancaria del beneficiario.</div>
+                </div>
+                <div class="form-grupo">
+                    <label>⏳ Plazo de entrega <i>*</i></label>
+                    <div class="plan-options" id="planContainer">
+                        <label class="plan-option" data-plan="48h">
+                            <input type="radio" name="plan" value="48h" data-costo="750" checked />
+                            <div class="plan-nombre">🚀 Express</div>
+                            <div class="plan-precio">$750</div>
+                            <div class="plan-dias">48h</div>
+                        </label>
+                        <label class="plan-option" data-plan="15d">
+                            <input type="radio" name="plan" value="15d" data-costo="450" />
+                            <div class="plan-nombre">📦 Estándar</div>
+                            <div class="plan-precio">$450</div>
+                            <div class="plan-dias">15 días</div>
+                        </label>
+                        <label class="plan-option" data-plan="30d">
+                            <input type="radio" name="plan" value="30d" data-costo="200" />
+                            <div class="plan-nombre">📬 Económico</div>
+                            <div class="plan-precio">$200</div>
+                            <div class="plan-dias">30 días</div>
+                        </label>
+                    </div>
+                    <div class="hint">* El costo se reflejará en el contrato.</div>
+                </div>
+                <div class="form-grupo">
+                    <label>✍️ Firma (nombre completo) <i>*</i></label>
+                    <input type="text" id="firma" placeholder="Firma del beneficiario" required />
+                </div>
+                <div class="form-grupo">
+                    <label>📅 Fecha <i>*</i></label>
+                    <input type="date" id="fecha" required />
+                </div>
+
+                <div class="acciones">
+                    <button type="button" class="btn btn-secundario" id="limpiarBtn">⟲ Limpiar</button>
+                    <button type="submit" class="btn btn-primario">✍️ Firmar contrato</button>
+                </div>
+            </form>
         </div>
 
-        <div class="grid-panel">
-
-            <!-- FORMULARIO -->
-            <div class="form-panel">
-                <h2>📋 Datos del contrato</h2>
-                <form id="formDatos">
-                    <div class="form-grupo">
-                        <label>👤 Nombre <i>*</i></label>
-                        <input type="text" id="nombre" placeholder="Nombre del beneficiario" required />
-                    </div>
-                    <div class="form-grupo">
-                        <label>📇 Apellido <i>*</i></label>
-                        <input type="text" id="apellido" placeholder="Apellido" required />
-                    </div>
-                    <div class="form-grupo">
-                        <label>🆔 Cédula / Pasaporte <i>*</i></label>
-                        <input type="text" id="cedula" placeholder="Ej: 1234567890" required />
-                    </div>
-                    <div class="form-grupo">
-                        <label>🏦 Banco para acreditación <i>*</i></label>
-                        <select id="banco" required>
-                            <option value="">Seleccione</option>
-                            <option value="Banco Central">Banco Central</option>
-                            <option value="Banco Pichincha">Banco Pichincha</option>
-                            <option value="Banco Guayaquil">Banco Guayaquil</option>
-                            <option value="Banco Pacífico">Banco Pacífico</option>
-                            <option value="Banco Internacional">Banco Internacional</option>
-                            <option value="Banco Bolivariano">Banco Bolivariano</option>
-                            <option value="Banco Produbanco">Banco Produbanco</option>
-                            <option value="Banco del Austro">Banco del Austro</option>
-                            <option value="Banco Solidario">Banco Solidario</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="form-grupo">
-                        <label>🔢 Número de cuenta <i>*</i></label>
-                        <input type="text" id="numeroCuenta" placeholder="Ej: 1234567890" required />
-                        <div class="hint">* Número de cuenta bancaria del beneficiario.</div>
-                    </div>
-                    <div class="form-grupo">
-                        <label>⏳ Plazo de entrega <i>*</i></label>
-                        <div class="plan-options" id="planContainer">
-                            <label class="plan-option" data-plan="48h">
-                                <input type="radio" name="plan" value="48h" data-costo="750" checked />
-                                <div class="plan-nombre">🚀 Express</div>
-                                <div class="plan-precio">$750</div>
-                                <div class="plan-dias">48h</div>
-                            </label>
-                            <label class="plan-option" data-plan="15d">
-                                <input type="radio" name="plan" value="15d" data-costo="450" />
-                                <div class="plan-nombre">📦 Estándar</div>
-                                <div class="plan-precio">$450</div>
-                                <div class="plan-dias">15 días</div>
-                            </label>
-                            <label class="plan-option" data-plan="30d">
-                                <input type="radio" name="plan" value="30d" data-costo="200" />
-                                <div class="plan-nombre">📬 Económico</div>
-                                <div class="plan-precio">$200</div>
-                                <div class="plan-dias">30 días</div>
-                            </label>
-                        </div>
-                        <div class="hint">* El costo se reflejará en el contrato.</div>
-                    </div>
-                    <div class="form-grupo">
-                        <label>✍️ Firma (nombre completo) <i>*</i></label>
-                        <input type="text" id="firma" placeholder="Firma del beneficiario" required />
-                    </div>
-                    <div class="form-grupo">
-                        <label>📅 Fecha <i>*</i></label>
-                        <input type="date" id="fecha" required />
-                    </div>
-
-                    <div class="acciones">
-                        <button type="button" class="btn btn-secundario" id="limpiarBtn">⟲ Limpiar</button>
-                        <button type="submit" class="btn btn-primario">✍️ Firmar contrato</button>
-                    </div>
-                </form>
+        <!-- VISTA PREVIA DEL CONTRATO -->
+        <div class="contrato-panel">
+            <div class="header-con-boton">
+                <h2>📄 Vista previa del contrato <span style="font-size:0.7rem; font-weight:400; color:#5a6f8a;">(se actualiza en vivo)</span></h2>
+                <button class="btn-pdf-header" id="descargarPdfDesdePreview">⬇️ Descargar PDF</button>
             </div>
-
-            <!-- VISTA PREVIA DEL CONTRATO -->
-            <div class="contrato-panel">
-                <div class="header-con-boton">
-                    <h2>📄 Vista previa del contrato <span style="font-size:0.7rem; font-weight:400; color:#5a6f8a;">(se actualiza en vivo)</span></h2>
-                    <button class="btn-pdf-header" id="descargarPdfDesdePreview">⬇️ Descargar PDF</button>
-                </div>
-                <div class="contrato-preview" id="contratoPreview">
-                    <!-- El contenido se inyecta con JavaScript -->
-                </div>
+            <div class="contrato-preview" id="contratoPreview">
+                <!-- El contenido se inyecta con JavaScript -->
             </div>
-
-        </div>
-
-        <div class="nota-legal">
-            ⚜️ Este documento es una vista previa. Al generar el PDF se incluirá el contrato completo con los datos ingresados.
         </div>
 
     </div>
 
-    <script>
-        (function() {
-            const nombreInput = document.getElementById('nombre');
-            const apellidoInput = document.getElementById('apellido');
-            const cedulaInput = document.getElementById('cedula');
-            const bancoSelect = document.getElementById('banco');
-            const numeroCuentaInput = document.getElementById('numeroCuenta');
-            const firmaInput = document.getElementById('firma');
-            const fechaInput = document.getElementById('fecha');
-            const planContainer = document.getElementById('planContainer');
-            const preview = document.getElementById('contratoPreview');
-            const form = document.getElementById('formDatos');
+    <div class="nota-legal">
+        ⚜️ Este documento es una vista previa. Al generar el PDF se incluirá el contrato completo con los datos ingresados.
+    </div>
 
-            // Datos del monedero USDT TRC-20
-            const MONEDERO_USDT = 'TCAgtcQNCecCRn5fV7ZrMa5euFzSyzPUu5';
-            const RED_USDT = 'TRC-20 (Tron)';
+</div>
 
-            const hoy = new Date().toISOString().split('T')[0];
-            fechaInput.value = hoy;
+<script>
+    (function() {
+        const nombreInput = document.getElementById('nombre');
+        const apellidoInput = document.getElementById('apellido');
+        const cedulaInput = document.getElementById('cedula');
+        const bancoSelect = document.getElementById('banco');
+        const numeroCuentaInput = document.getElementById('numeroCuenta');
+        const firmaInput = document.getElementById('firma');
+        const fechaInput = document.getElementById('fecha');
+        const planContainer = document.getElementById('planContainer');
+        const preview = document.getElementById('contratoPreview');
+        const form = document.getElementById('formDatos');
 
-            let planSeleccionado = '48h';
-            let costoSeleccionado = 750;
-            const planNombres = { '48h': '48 horas (Express)', '15d': '15 días (Estándar)', '30d': '30 días (Económico)' };
+        // Datos del monedero USDT TRC-20
+        const MONEDERO_USDT = 'TCAgtcQNCecCRn5fV7ZrMa5euFzSyzPUu5';
+        const RED_USDT = 'TRC-20 (Tron)';
 
-            const planRadios = document.querySelectorAll('input[name="plan"]');
-            planRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.checked) {
-                        planSeleccionado = this.value;
-                        costoSeleccionado = parseInt(this.dataset.costo, 10) || 0;
-                        document.querySelectorAll('.plan-option').forEach(c => c.classList.remove(
-                        'seleccionado'));
-                        this.closest('.plan-option')?.classList.add('seleccionado');
-                        renderContrato();
-                    }
-                });
+        const hoy = new Date().toISOString().split('T')[0];
+        fechaInput.value = hoy;
+
+        let planSeleccionado = '48h';
+        let costoSeleccionado = 750;
+        const planNombres = { '48h': '48 horas (Express)', '15d': '15 días (Estándar)', '30d': '30 días (Económico)' };
+
+        const planRadios = document.querySelectorAll('input[name="plan"]');
+        planRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    planSeleccionado = this.value;
+                    costoSeleccionado = parseInt(this.dataset.costo, 10) || 0;
+                    document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('seleccionado'));
+                    this.closest('.plan-option')?.classList.add('seleccionado');
+                    renderContrato();
+                }
             });
-            const primerRadio = document.querySelector('input[name="plan"]');
-            if (primerRadio) {
-                primerRadio.checked = true;
-                primerRadio.closest('.plan-option')?.classList.add('seleccionado');
-                planSeleccionado = primerRadio.value;
-                costoSeleccionado = parseInt(primerRadio.dataset.costo, 10) || 0;
-            }
+        });
+        const primerRadio = document.querySelector('input[name="plan"]');
+        if (primerRadio) {
+            primerRadio.checked = true;
+            primerRadio.closest('.plan-option')?.classList.add('seleccionado');
+            planSeleccionado = primerRadio.value;
+            costoSeleccionado = parseInt(primerRadio.dataset.costo, 10) || 0;
+        }
 
-            // --- Función que genera el HTML del contrato con todos los datos ---
-            function generarHTMLContrato() {
-                const nombre = nombreInput.value.trim() || '[Nombre]';
-                const apellido = apellidoInput.value.trim() || '[Apellido]';
-                const nombreCompleto = `${nombre} ${apellido}`.trim() || '[Beneficiario]';
-                const cedula = cedulaInput.value.trim() || '[Cédula]';
-                const banco = bancoSelect.value || '[Banco]';
-                const numeroCuenta = numeroCuentaInput.value.trim() || '[Número de cuenta]';
-                const firma = firmaInput.value.trim() || '[Firma]';
-                const fechaRaw = fechaInput.value;
-                const fecha = fechaRaw ? new Date(fechaRaw).toLocaleDateString('es-ES', { day: 'numeric',
-                    month: 'long', year: 'numeric' }) : '[Fecha]';
-                const planTexto = planNombres[planSeleccionado] || planSeleccionado;
-                const monto = costoSeleccionado;
+        // --- Función que genera el HTML del contrato con todos los datos ---
+        function generarHTMLContrato() {
+            const nombre = nombreInput.value.trim() || '[Nombre]';
+            const apellido = apellidoInput.value.trim() || '[Apellido]';
+            const nombreCompleto = `${nombre} ${apellido}`.trim() || '[Beneficiario]';
+            const cedula = cedulaInput.value.trim() || '[Cédula]';
+            const banco = bancoSelect.value || '[Banco]';
+            const numeroCuenta = numeroCuentaInput.value.trim() || '[Número de cuenta]';
+            const firma = firmaInput.value.trim() || '[Firma]';
+            const fechaRaw = fechaInput.value;
+            const fecha = fechaRaw ? new Date(fechaRaw).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : '[Fecha]';
+            const planTexto = planNombres[planSeleccionado] || planSeleccionado;
+            const monto = costoSeleccionado;
 
-                return `
+            return `
                 <div style="font-family: 'Inter', sans-serif;">
 
                     <div style="text-align: center; border-bottom: 2px solid #d0dcec; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
@@ -972,106 +361,101 @@
 
                 </div>
             `;
+        }
+
+        function renderContrato() {
+            preview.innerHTML = generarHTMLContrato();
+        }
+
+        // Actualizar en vivo
+        const inputs = [nombreInput, apellidoInput, cedulaInput, bancoSelect, numeroCuentaInput, firmaInput, fechaInput];
+        inputs.forEach(input => {
+            input.addEventListener('input', renderContrato);
+            input.addEventListener('change', renderContrato);
+        });
+
+        renderContrato();
+
+        // Limpiar
+        document.getElementById('limpiarBtn').addEventListener('click', function() {
+            nombreInput.value = '';
+            apellidoInput.value = '';
+            cedulaInput.value = '';
+            bancoSelect.value = '';
+            numeroCuentaInput.value = '';
+            firmaInput.value = '';
+            fechaInput.value = hoy;
+            const radios = document.querySelectorAll('input[name="plan"]');
+            radios.forEach(r => r.checked = false);
+            document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('seleccionado'));
+            const primer = document.querySelector('input[name="plan"]');
+            if (primer) {
+                primer.checked = true;
+                primer.closest('.plan-option')?.classList.add('seleccionado');
+                planSeleccionado = primer.value;
+                costoSeleccionado = parseInt(primer.dataset.costo, 10) || 0;
             }
-
-            function renderContrato() {
-                preview.innerHTML = generarHTMLContrato();
-            }
-
-            // Actualizar en vivo
-            const inputs = [nombreInput, apellidoInput, cedulaInput, bancoSelect, numeroCuentaInput, firmaInput,
-                fechaInput
-            ];
-            inputs.forEach(input => {
-                input.addEventListener('input', renderContrato);
-                input.addEventListener('change', renderContrato);
-            });
-
             renderContrato();
+        });
 
-            // Limpiar
-            document.getElementById('limpiarBtn').addEventListener('click', function() {
-                nombreInput.value = '';
-                apellidoInput.value = '';
-                cedulaInput.value = '';
-                bancoSelect.value = '';
-                numeroCuentaInput.value = '';
-                firmaInput.value = '';
-                fechaInput.value = hoy;
-                const radios = document.querySelectorAll('input[name="plan"]');
-                radios.forEach(r => r.checked = false);
-                document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('seleccionado'));
-                const primer = document.querySelector('input[name="plan"]');
-                if (primer) {
-                    primer.checked = true;
-                    primer.closest('.plan-option')?.classList.add('seleccionado');
-                    planSeleccionado = primer.value;
-                    costoSeleccionado = parseInt(primer.dataset.costo, 10) || 0;
-                }
-                renderContrato();
-            });
+        // Submit
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = nombreInput.value.trim();
+            const apellido = apellidoInput.value.trim();
+            const cedula = cedulaInput.value.trim();
+            const banco = bancoSelect.value;
+            const numeroCuenta = numeroCuentaInput.value.trim();
+            const firma = firmaInput.value.trim();
+            const fecha = fechaInput.value;
 
-            // Submit
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const nombre = nombreInput.value.trim();
-                const apellido = apellidoInput.value.trim();
-                const cedula = cedulaInput.value.trim();
-                const banco = bancoSelect.value;
-                const numeroCuenta = numeroCuentaInput.value.trim();
-                const firma = firmaInput.value.trim();
-                const fecha = fechaInput.value;
+            if (!nombre || !apellido || !cedula || !banco || !numeroCuenta || !firma || !fecha) {
+                alert('⚠️ Todos los campos son obligatorios.');
+                return;
+            }
 
-                if (!nombre || !apellido || !cedula || !banco || !numeroCuenta || !firma || !fecha) {
-                    alert('⚠️ Todos los campos son obligatorios.');
-                    return;
-                }
+            const mensaje = `✧ CONTRATO DE DESEMBOLSO · UPCOMER ✧\n\n` +
+                `Beneficiario: ${nombre} ${apellido}\n` +
+                `Cédula: ${cedula}\n` +
+                `Banco: ${banco}\n` +
+                `Número de cuenta: ${numeroCuenta}\n` +
+                `Plan: ${planNombres[planSeleccionado]}\n` +
+                `Costo: $${costoSeleccionado}\n` +
+                `Firma: ${firma}\n` +
+                `Fecha: ${new Date(fecha).toLocaleDateString('es-ES')}\n` +
+                `USDT TRC-20: ${MONEDERO_USDT}\n\n` +
+                `⚡ Pago obligatorio ante la Banca Central.\n` +
+                `⚡ Incumplimiento: multa USD $50,000.\n\n` +
+                `¿Confirmar la firma del contrato?`;
 
-                const mensaje = `✧ CONTRATO DE DESEMBOLSO · UPCOMER ✧\n\n` +
-                    `Beneficiario: ${nombre} ${apellido}\n` +
-                    `Cédula: ${cedula}\n` +
-                    `Banco: ${banco}\n` +
-                    `Número de cuenta: ${numeroCuenta}\n` +
-                    `Plan: ${planNombres[planSeleccionado]}\n` +
-                    `Costo: $${costoSeleccionado}\n` +
-                    `Firma: ${firma}\n` +
-                    `Fecha: ${new Date(fecha).toLocaleDateString('es-ES')}\n` +
-                    `USDT TRC-20: ${MONEDERO_USDT}\n\n` +
-                    `⚡ Pago obligatorio ante la Banca Central.\n` +
-                    `⚡ Incumplimiento: multa USD $50,000.\n\n` +
-                    `¿Confirmar la firma del contrato?`;
+            if (confirm(mensaje)) {
+                alert(`✅ Contrato firmado por ${nombre} ${apellido}.\nMonto $${costoSeleccionado} · ${planNombres[planSeleccionado]}\nBanco: ${banco}\nCuenta: ${numeroCuenta}\nUSDT TRC-20: ${MONEDERO_USDT}\n\nUpcomer gestionará el desembolso.`);
+            }
+        });
 
-                if (confirm(mensaje)) {
-                    alert(
-                        `✅ Contrato firmado por ${nombre} ${apellido}.\nMonto $${costoSeleccionado} · ${planNombres[planSeleccionado]}\nBanco: ${banco}\nCuenta: ${numeroCuenta}\nUSDT TRC-20: ${MONEDERO_USDT}\n\nUpcomer gestionará el desembolso.`
-                        );
-                }
-            });
+        // --- FUNCIÓN PARA GENERAR PDF (reutilizable) ---
+        function generarPDF() {
+            if (!nombreInput.value.trim() || !apellidoInput.value.trim() || !cedulaInput.value.trim() || !bancoSelect.value || !numeroCuentaInput.value.trim() || !firmaInput.value.trim() || !fechaInput.value) {
+                alert('⚠️ Completa todos los campos antes de generar el PDF.');
+                return;
+            }
 
-            // --- FUNCIÓN PARA GENERAR PDF (reutilizable) ---
-            function generarPDF() {
-                if (!nombreInput.value.trim() || !apellidoInput.value.trim() || !cedulaInput.value.trim() || !bancoSelect
-                    .value || !numeroCuentaInput.value.trim() || !firmaInput.value.trim() || !fechaInput.value) {
-                    alert('⚠️ Completa todos los campos antes de generar el PDF.');
-                    return;
-                }
+            const btn = document.getElementById('descargarPdfDesdePreview');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="loader-pdf"></span> Generando...';
+            btn.disabled = true;
 
-                const btn = document.getElementById('descargarPdfDesdePreview');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<span class="loader-pdf"></span> Generando...';
-                btn.disabled = true;
+            // Generar el HTML completo del contrato con los datos actuales
+            const contenidoHTML = generarHTMLContrato();
 
-                // Generar el HTML completo del contrato con los datos actuales
-                const contenidoHTML = generarHTMLContrato();
+            // Crear un contenedor temporal para el PDF
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'padding: 0.5in; background: white; font-family: "Inter", sans-serif;';
+            wrapper.innerHTML = contenidoHTML;
 
-                // Crear un contenedor temporal para el PDF
-                const wrapper = document.createElement('div');
-                wrapper.style.cssText = 'padding: 0.5in; background: white; font-family: "Inter", sans-serif;';
-                wrapper.innerHTML = contenidoHTML;
-
-                // Agregar estilos para el PDF (idénticos a la vista previa)
-                const style = document.createElement('style');
-                style.textContent = `
+            // Agregar estilos para el PDF (idénticos a la vista previa)
+            const style = document.createElement('style');
+            style.textContent = `
                 .clausula { margin-bottom: 1.2rem; }
                 .clausula h3 { font-size: 1.1rem; font-weight: 700; color: #0b1a33; border-left: 4px solid #1e6f9f; padding-left: 0.8rem; margin-bottom: 0.3rem; }
                 .clausula ul { padding-left: 1.8rem; list-style: none; }
@@ -1087,32 +471,32 @@
                 .monedero-box .direccion { font-family: monospace; font-size: 0.85rem; background: white; padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all; }
                 body { margin: 0; padding: 0; }
             `;
-                wrapper.appendChild(style);
+            wrapper.appendChild(style);
 
-                const opt = {
-                    margin: [0.5, 0.5, 0.5, 0.5],
-                    filename: `Contrato_Upcomer_${nombreInput.value.trim()}_${apellidoInput.value.trim()}.pdf`,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false },
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                };
+            const opt = {
+                margin:        [0.5, 0.5, 0.5, 0.5],
+                filename:     `Contrato_Upcomer_${nombreInput.value.trim()}_${apellidoInput.value.trim()}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
 
-                html2pdf().set(opt).from(wrapper).save().then(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }).catch((err) => {
-                    console.error('Error PDF:', err);
-                    alert('Error al generar el PDF. Intenta de nuevo.');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            }
+            html2pdf().set(opt).from(wrapper).save().then(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch((err) => {
+                console.error('Error PDF:', err);
+                alert('Error al generar el PDF. Intenta de nuevo.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
 
-            // --- Botón de descarga dentro de la vista previa ---
-            document.getElementById('descargarPdfDesdePreview').addEventListener('click', generarPDF);
+        // --- Botón de descarga dentro de la vista previa ---
+        document.getElementById('descargarPdfDesdePreview').addEventListener('click', generarPDF);
 
-        })();
-    </script>
+    })();
+</script>
 
 </body>
 </html>
