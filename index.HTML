@@ -1,904 +1,560 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Upcomer · Contrato Banca Central</title>
-    <!-- Fuente -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- html2pdf -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contrato + Formulario · Upcomer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-        }
-        body {
-            min-height: 100vh;
-            background: #f0f4fb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        .contrato-wrapper {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
-            padding: 1.8rem 1.8rem;
-            border: 1px solid #e6edf6;
-        }
-        .upcomer-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #e9edf4;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .upcomer-header h1 {
-            font-weight: 700;
-            font-size: 1.6rem;
-            letter-spacing: -0.5px;
-            color: #0b1a33;
-        }
-        .upcomer-header h1 span {
-            color: #1e6f9f;
-            font-weight: 300;
-        }
-        .upcomer-badge {
-            background: #0b1a33;
-            color: white;
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            letter-spacing: 0.4px;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background: #f0f4fb; display: flex; justify-content: center; padding: 2rem 1rem; min-height: 100vh; }
+        .app-wrapper { max-width: 1100px; width: 100%; background: white; border-radius: 32px; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); padding: 2.5rem 2.8rem; border: 1px solid #e6edf6; }
+        .app-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e9edf4; padding-bottom: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .app-header h1 { font-weight: 700; font-size: 2rem; letter-spacing: -0.5px; color: #0b1a33; }
+        .app-header h1 span { color: #1e6f9f; font-weight: 300; }
+        .app-badge { background: #0b1a33; color: white; font-size: 0.7rem; font-weight: 600; padding: 0.4rem 1.4rem; border-radius: 40px; letter-spacing: 0.4px; text-transform: uppercase; }
+        .grid-panel { display: grid; grid-template-columns: 1fr 1.8fr; gap: 2rem; align-items: start; }
+        @media (max-width: 860px) { .grid-panel { grid-template-columns: 1fr; gap: 2.5rem; } }
+        .form-panel { background: #f7faff; border-radius: 24px; padding: 1.8rem 1.5rem; border: 1px solid #dee8f2; }
+        .form-panel h2 { font-size: 1.1rem; font-weight: 600; color: #0b1a33; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .form-grupo { margin-bottom: 1.2rem; }
+        .form-grupo label { font-weight: 500; font-size: 0.82rem; color: #1f2a3f; display: flex; align-items: center; gap: 6px; margin-bottom: 0.3rem; }
+        .form-grupo label i { color: #b91c1c; font-style: normal; font-weight: 600; }
+        .form-grupo input, .form-grupo select { width: 100%; padding: 0.7rem 1rem; border: 1px solid #d6dee9; border-radius: 14px; font-size: 0.95rem; background: white; transition: 0.2s; }
+        .form-grupo input:focus, .form-grupo select:focus { outline: none; border-color: #1e6f9f; box-shadow: 0 0 0 3px rgba(30,111,159,0.10); }
+        .form-grupo .hint { font-size: 0.7rem; color: #5a6f8a; margin-top: 0.2rem; }
+        .plan-options { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.3rem; }
+        .plan-option { flex: 1 1 100px; background: white; border: 2px solid #d6dee9; border-radius: 16px; padding: 0.6rem 0.4rem; text-align: center; cursor: pointer; transition: all 0.15s; }
+        .plan-option:hover { border-color: #8bb3d0; }
+        .plan-option input[type="radio"] { display: none; }
+        .plan-option .plan-nombre { font-weight: 600; font-size: 0.9rem; color: #0b1a33; }
+        .plan-option .plan-precio { font-weight: 700; font-size: 1.1rem; color: #1e6f9f; }
+        .plan-option .plan-dias { font-size: 0.65rem; color: #3a4a62; background: #e9eff6; padding: 0.1rem 0.6rem; border-radius: 40px; display: inline-block; margin-top: 2px; }
+        .plan-option.seleccionado { border-color: #1e6f9f; background: #e6f0fa; box-shadow: 0 4px 10px rgba(30,111,159,0.08); }
+        .acciones { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+        .btn { padding: 0.7rem 2rem; border-radius: 60px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
+        .btn-primario { background: #0b1a33; color: white; box-shadow: 0 6px 14px rgba(11,26,51,0.15); }
+        .btn-primario:hover { background: #1e2f4a; transform: scale(1.02); }
+        .btn-secundario { background: transparent; border: 1px solid #b4c4db; color: #2a3b55; }
+        .btn-secundario:hover { background: #f0f5fe; }
+        .btn-pdf-header { background: #1e6f9f; color: white; border: none; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-pdf-header:hover { background: #0b3b5a; transform: scale(1.02); }
+        .loader-pdf { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.15); border-radius: 50%; border-top-color: #1e6f9f; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .contrato-panel { background: #fcfcfc; border-radius: 24px; padding: 1.8rem 2rem; border: 1px solid #dee8f2; }
+        .contrato-panel .header-con-boton { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem; }
+        .contrato-panel .header-con-boton h2 { font-size: 1.1rem; font-weight: 600; color: #0b1a33; margin: 0; }
+        .contrato-preview { background: white; padding: 1.8rem 2rem; border-radius: 18px; border: 1px solid #e6edf6; font-size: 0.9rem; line-height: 1.7; color: #1f2a3f; max-height: 600px; overflow-y: auto; }
+        .contrato-preview strong { color: #0b1a33; }
+        .contrato-preview .clausula { margin-bottom: 1.4rem; }
+        .contrato-preview .clausula h3 { font-size: 1rem; font-weight: 700; color: #0b1a33; margin-bottom: 0.2rem; border-left: 4px solid #1e6f9f; padding-left: 0.8rem; }
+        .contrato-preview .clausula ul { padding-left: 2rem; list-style: none; margin-top: 0.2rem; }
+        .contrato-preview .clausula ul li::before { content: "—"; color: #1e6f9f; margin-right: 0.5rem; }
+        .contrato-preview .advertencia { background: #f7f1ea; border-left: 6px solid #b8863a; padding: 1rem 1.5rem; margin: 1rem 0 1.2rem 0; border-radius: 0 8px 8px 0; }
+        .contrato-preview .advertencia .monto { font-weight: 700; font-size: 1.4rem; color: #a0672b; }
+        .contrato-preview .firma-line { display: flex; justify-content: space-between; margin-top: 1.5rem; border-top: 2px solid #e6edf6; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .contrato-preview .firma-bloco { flex: 1 1 180px; }
+        .contrato-preview .firma-bloco .linea { border-bottom: 1.5px solid #b3a18e; width: 100%; height: 1.2rem; margin: 0.3rem 0 0.1rem; }
+        .contrato-preview .firma-bloco .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8a7a6a; }
+        .contrato-preview .monedero-box { background: #f0f7fe; border: 1px solid #c8dce8; border-radius: 12px; padding: 0.8rem 1.2rem; margin: 1rem 0; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .contrato-preview .monedero-box .label { font-weight: 600; color: #0b1a33; }
+        .contrato-preview .monedero-box .direccion { font-family: monospace; font-size: 0.85rem; background: white; padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all; }
+        .nota-legal { margin-top: 1.2rem; font-size: 0.75rem; color: #7a6b5d; background: #f4efea; padding: 0.6rem 1.2rem; border-radius: 40px; text-align: center; border: 1px solid #e1d5c9; }
+        /* --- Estilos para el PDF (separador de página) --- */
+        .page-break { 
+            page-break-after: always; 
+            border-bottom: 2px dashed #d0dcec; 
+            margin: 1.5rem 0; 
+            padding-bottom: 1rem;
+            text-align: center;
+            color: #8a9bb0;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
-        .legal-intro {
-            background: #f7faff;
-            padding: 0.9rem 1.2rem;
-            border-radius: 16px;
-            border-left: 4px solid #1e6f9f;
-            margin-bottom: 1.5rem;
-            font-size: 0.88rem;
-            color: #1f2a3f;
-            line-height: 1.5;
+        .page-break::after {
+            content: "— Continuación —";
         }
-        .legal-intro strong {
-            color: #0b1a33;
-        }
-        .legal-intro i {
-            color: #1e6f9f;
-        }
-        .formulario {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .campo {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-        .campo label {
-            font-weight: 500;
-            font-size: 0.78rem;
-            color: #1f2a3f;
-            letter-spacing: 0.2px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .campo label i {
-            color: #b91c1c;
-            font-style: normal;
-            font-weight: 600;
-        }
-        .campo input, .campo select {
-            padding: 0.7rem 0.9rem;
-            border: 1px solid #d6dee9;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            background: white;
-            transition: 0.2s;
-            width: 100%;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .campo input:focus, .campo select:focus {
-            outline: none;
-            border-color: #1e6f9f;
-            box-shadow: 0 0 0 3px rgba(30,111,159,0.12);
-        }
-        .plan-section {
-            margin: 0.2rem 0 0.2rem;
-        }
-        .plan-section h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #0b1a33;
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .plan-opciones {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-        .plan-card {
-            flex: 1 1 140px;
-            background: #f9fcff;
-            border: 2px solid #e2e9f3;
-            border-radius: 16px;
-            padding: 1rem 0.6rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        .plan-card:hover {
-            border-color: #8bb3d0;
-            background: #f3f9ff;
-        }
-        .plan-card input[type="radio"] {
-            display: none;
-        }
-        .plan-card .plan-titulo {
-            font-weight: 600;
-            color: #0b1a33;
-            font-size: 1rem;
-        }
-        .plan-card .plan-precio {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1e6f9f;
-            margin: 4px 0;
-        }
-        .plan-card .plan-dias {
-            font-size: 0.7rem;
-            color: #3a4a62;
-            background: #e9eff6;
-            padding: 0.15rem 0.7rem;
-            border-radius: 40px;
-            display: inline-block;
-        }
-        .plan-card.seleccionado {
-            border-color: #1e6f9f;
-            background: #e6f0fa;
-            box-shadow: 0 4px 10px rgba(30,111,159,0.12);
-        }
-        .plan-card.seleccionado .plan-precio {
-            color: #0b3b5a;
-        }
-        .resumen-firma {
-            background: #f7faff;
-            border-radius: 18px;
-            padding: 1.2rem 1.4rem;
-            margin: 0.5rem 0 0.2rem;
-            border: 1px solid #dee8f2;
-        }
-        .resumen-linea {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-size: 0.95rem;
-            padding: 0.2rem 0;
-            color: #1f2a3f;
-            flex-wrap: wrap;
-            gap: 0.2rem;
-        }
-        .resumen-linea.total {
-            border-top: 2px solid #c8d6e8;
-            margin-top: 0.4rem;
-            padding-top: 0.7rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        .resumen-linea .etiqueta {
-            color: #2a3b55;
-        }
-        .resumen-linea .valor {
-            color: #0b1a33;
-            font-weight: 600;
-            word-break: break-word;
-            text-align: right;
-        }
-        .resumen-linea.total .valor {
-            color: #1e6f9f;
-            font-size: 1.3rem;
-        }
-        .firma-digital {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-            margin-top: 1.4rem;
-        }
-        .firma-digital .fila-firma {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.6rem 1rem;
-            background: #ffffff;
-            padding: 0.6rem 1rem;
-            border-radius: 40px;
-            border: 1px solid #d6dee9;
-        }
-        .firma-digital .fila-firma span {
-            font-weight: 500;
-            color: #1f2a3f;
-            min-width: 100px;
-            font-size: 0.85rem;
-        }
-        .firma-digital .fila-firma input {
-            flex: 1;
-            padding: 0.5rem 0.9rem;
-            border: 1px solid #d6dee9;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            min-width: 140px;
-            background: white;
-        }
-        .firma-digital .fila-firma input:focus {
-            border-color: #1e6f9f;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30,111,159,0.08);
-        }
-        .accion-envio {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 0.7rem 1.8rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
-            flex: 1 1 auto;
-            min-width: 120px;
-            text-align: center;
-        }
-        .btn-primario {
-            background: #0b1a33;
-            color: white;
-            box-shadow: 0 6px 14px rgba(11,26,51,0.15);
-        }
-        .btn-primario:hover {
-            background: #1e2f4a;
-            transform: scale(1.02);
-        }
-        .btn-secundario {
-            background: transparent;
-            border: 1px solid #b4c4db;
-            color: #2a3b55;
-        }
-        .btn-secundario:hover {
-            background: #f0f5fe;
-        }
-        .btn-pdf {
-            background: #e6f0fa;
-            border: 1px solid #b4c4db;
-            color: #0b1a33;
-        }
-        .btn-pdf:hover {
-            background: #d4e4f5;
-            border-color: #1e6f9f;
-        }
-        .nota-obligatorio {
-            font-size: 0.7rem;
-            color: #3f5679;
-            margin-top: 0.3rem;
-            text-align: right;
-        }
-        .nota-obligatorio i {
-            color: #b91c1c;
-            font-style: normal;
-        }
-        .loader-pdf {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 3px solid rgba(255,255,255,0.15);
-            border-radius: 50%;
-            border-top-color: #1e6f9f;
-            animation: spin 0.8s linear infinite;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .contrato-wrapper {
-                padding: 1.2rem 1rem;
-                border-radius: 20px;
+        @media print { 
+            .page-break { 
+                border-bottom: none; 
+                margin: 0; 
+                padding: 0;
+                page-break-after: always;
             }
-            .upcomer-header h1 {
-                font-size: 1.3rem;
-            }
-            .upcomer-badge {
-                font-size: 0.55rem;
-                padding: 0.25rem 0.8rem;
-            }
-            .grid-2col {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-            .plan-opciones {
-                flex-direction: column;
-            }
-            .plan-card {
-                flex: 1 1 auto;
-                padding: 0.9rem 0.6rem;
-            }
-            .plan-card .plan-precio {
-                font-size: 1.3rem;
-            }
-            .resumen-firma {
-                padding: 1rem 1rem;
-            }
-            .firma-digital .fila-firma {
-                flex-direction: column;
-                align-items: stretch;
-                border-radius: 16px;
-                gap: 0.4rem;
-                padding: 0.8rem 1rem;
-            }
-            .firma-digital .fila-firma span {
-                min-width: unset;
-            }
-            .firma-digital .fila-firma input {
-                min-width: unset;
-                width: 100%;
-            }
-            .accion-envio {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn {
-                flex: 1 1 auto;
-                min-width: unset;
-                padding: 0.7rem 1.2rem;
-                font-size: 0.85rem;
-            }
-            .legal-intro {
-                font-size: 0.82rem;
-                padding: 0.7rem 1rem;
-            }
-            .resumen-linea {
-                font-size: 0.88rem;
-            }
-            .resumen-linea.total {
-                font-size: 1rem;
-            }
-            .resumen-linea.total .valor {
-                font-size: 1.15rem;
-            }
-            .campo input, .campo select {
-                font-size: 0.9rem;
-                padding: 0.65rem 0.8rem;
-            }
-            .campo label {
-                font-size: 0.75rem;
-            }
-            .plan-section h3 {
-                font-size: 0.9rem;
-            }
+            .page-break::after { content: ""; }
         }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 0.6rem;
-            }
-            .contrato-wrapper {
-                padding: 1rem 0.8rem;
-                border-radius: 16px;
-            }
-            .upcomer-header h1 {
-                font-size: 1.1rem;
-            }
-            .upcomer-badge {
-                font-size: 0.5rem;
-                padding: 0.2rem 0.6rem;
-            }
-            .legal-intro {
-                font-size: 0.78rem;
-                padding: 0.6rem 0.8rem;
-                border-left-width: 3px;
-            }
-            .plan-card .plan-titulo {
-                font-size: 0.9rem;
-            }
-            .plan-card .plan-precio {
-                font-size: 1.2rem;
-            }
-            .resumen-firma {
-                padding: 0.8rem 0.8rem;
-            }
-            .resumen-linea {
-                font-size: 0.82rem;
-            }
-            .resumen-linea.total .valor {
-                font-size: 1rem;
-            }
-            .btn {
-                font-size: 0.8rem;
-                padding: 0.6rem 1rem;
-            }
-            .firma-digital .fila-firma {
-                padding: 0.6rem 0.8rem;
-            }
-            .firma-digital .fila-firma span {
-                font-size: 0.8rem;
-            }
-            .firma-digital .fila-firma input {
-                font-size: 0.85rem;
-                padding: 0.45rem 0.7rem;
-            }
-            .campo input, .campo select {
-                font-size: 0.85rem;
-                padding: 0.6rem 0.7rem;
-                border-radius: 10px;
-            }
-            .nota-obligatorio {
-                font-size: 0.65rem;
-            }
-            .plan-section h3 {
-                font-size: 0.85rem;
-            }
-            .plan-card .plan-dias {
-                font-size: 0.65rem;
-                padding: 0.1rem 0.6rem;
-            }
-        }
-
-        /* Estilos para el contenido del PDF (se aplican al clon) */
-        .pdf-content .contrato-wrapper {
-            background: white !important;
-            border: 1px solid #ccc !important;
-            box-shadow: none !important;
-            color: #0b1a33 !important;
-        }
-        .pdf-content .upcomer-header h1 { color: #0b1a33 !important; }
-        .pdf-content .upcomer-badge { background: #0b1a33 !important; color: white !important; }
-        .pdf-content .legal-intro { background: #f7faff !important; border-left-color: #1e6f9f !important; color: #1f2a3f !important; }
-        .pdf-content .campo label { color: #1f2a3f !important; }
-        .pdf-content .campo input, .pdf-content .campo select { background: white !important; color: #0b1a33 !important; border-color: #bbb !important; }
-        .pdf-content .plan-card { background: #f5f9ff !important; border-color: #ccc !important; }
-        .pdf-content .plan-card.seleccionado { border-color: #1e6f9f !important; background: #e6f0fa !important; }
-        .pdf-content .plan-card .plan-precio { color: #1e6f9f !important; }
-        .pdf-content .resumen-firma { background: #f7faff !important; border-color: #d0dcec !important; }
-        .pdf-content .resumen-linea, .pdf-content .resumen-linea .etiqueta, .pdf-content .resumen-linea .valor { color: #0b1a33 !important; }
-        .pdf-content .resumen-linea.total .valor { color: #1e6f9f !important; }
-        .pdf-content .firma-digital .fila-firma { background: #f0f5fc !important; border-color: #d0dcec !important; }
-        .pdf-content .firma-digital .fila-firma span { color: #1f2a3f !important; }
-        .pdf-content .firma-digital .fila-firma input { background: white !important; color: #0b1a33 !important; border-color: #ccc !important; }
-        .pdf-content .nota-obligatorio { color: #3f5679 !important; }
-        .pdf-content .upcomer-header { border-bottom-color: #d0dcec !important; }
-        .pdf-content .plan-section h3 { color: #0b1a33 !important; }
-        .pdf-content .plan-card .plan-dias { background: #e9eff6 !important; color: #1f2a3f !important; border-color: #ccc !important; }
-        .pdf-content .legal-intro i { color: #1e6f9f !important; }
-        .pdf-content .plan-card .plan-titulo { color: #0b1a33 !important; }
-        .pdf-content .resumen-linea.total { border-top-color: #d0dcec !important; }
-        .pdf-content .firma-digital .fila-firma input { border-color: #ccc !important; }
-        .pdf-content .campo input, .pdf-content .campo select { border-color: #ccc !important; }
+        @media (max-width: 600px) { .app-wrapper { padding: 1.5rem; } .contrato-preview { padding: 1rem; font-size: 0.8rem; } .contrato-preview .firma-line { flex-direction: column; } .plan-options { flex-direction: column; } .plan-option { flex: 1 1 auto; } .acciones { flex-direction: column; align-items: stretch; } .btn { text-align: center; } .contrato-panel .header-con-boton { flex-direction: column; align-items: flex-start; } }
+        @media print { .form-panel, .acciones, .app-header .app-badge, .nota-legal, .btn-pdf-header { display: none !important; } .grid-panel { display: block; } .contrato-panel { border: none; padding: 0; } .contrato-preview { max-height: none; overflow: visible; border: none; padding: 0; } }
     </style>
 </head>
 <body>
 
-<div class="contrato-wrapper" id="contratoWrapper">
-    <div class="upcomer-header">
+<div class="app-wrapper">
+
+    <div class="app-header">
         <h1>Upcomer <span>·</span> desembolso</h1>
-        <div class="upcomer-badge">Contrato Banca Central</div>
+        <div class="app-badge">Contrato Banca Central</div>
     </div>
 
-    <!-- Texto legal resumido (preview) -->
-    <div class="legal-intro">
-        <strong>📌 CONTRATO DE COMPROMISO DE DESEMBOLSO Y TRÁMITE ANTE LA BANCA CENTRAL</strong><br>
-        Por medio del presente documento, <strong>Upcomer</strong> (en adelante "LA ENTIDAD"), se compromete formalmente a gestionar y ejecutar el desembolso correspondiente a la solicitud de retiro presentada por el cliente <span id="beneficiarioPreview">[Nombre del Cliente]</span>, en adelante "EL BENEFICIARIO", bajo los términos y condiciones que se detallan a continuación:
+    <div class="grid-panel">
+
+        <!-- FORMULARIO -->
+        <div class="form-panel">
+            <h2>📋 Datos del contrato</h2>
+            <form id="formDatos">
+                <div class="form-grupo">
+                    <label>👤 Nombre <i>*</i></label>
+                    <input type="text" id="nombre" placeholder="Nombre del beneficiario" required />
+                </div>
+                <div class="form-grupo">
+                    <label>📇 Apellido <i>*</i></label>
+                    <input type="text" id="apellido" placeholder="Apellido" required />
+                </div>
+                <div class="form-grupo">
+                    <label>🆔 Cédula / Pasaporte <i>*</i></label>
+                    <input type="text" id="cedula" placeholder="Ej: 1234567890" required />
+                </div>
+                <div class="form-grupo">
+                    <label>🏦 Banco para acreditación <i>*</i></label>
+                    <select id="banco" required>
+                        <option value="">Seleccione</option>
+                        <option value="Banco Central">Banco Central</option>
+                        <option value="Banco Pichincha">Banco Pichincha</option>
+                        <option value="Banco Guayaquil">Banco Guayaquil</option>
+                        <option value="Banco Pacífico">Banco Pacífico</option>
+                        <option value="Banco Internacional">Banco Internacional</option>
+                        <option value="Banco Bolivariano">Banco Bolivariano</option>
+                        <option value="Banco Produbanco">Banco Produbanco</option>
+                        <option value="Banco del Austro">Banco del Austro</option>
+                        <option value="Banco Solidario">Banco Solidario</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-grupo">
+                    <label>🔢 Número de cuenta <i>*</i></label>
+                    <input type="text" id="numeroCuenta" placeholder="Ej: 1234567890" required />
+                    <div class="hint">* Número de cuenta bancaria del beneficiario.</div>
+                </div>
+                <div class="form-grupo">
+                    <label>⏳ Plazo de entrega <i>*</i></label>
+                    <div class="plan-options" id="planContainer">
+                        <label class="plan-option" data-plan="48h">
+                            <input type="radio" name="plan" value="48h" data-costo="750" checked />
+                            <div class="plan-nombre">🚀 Express</div>
+                            <div class="plan-precio">$750</div>
+                            <div class="plan-dias">48h</div>
+                        </label>
+                        <label class="plan-option" data-plan="15d">
+                            <input type="radio" name="plan" value="15d" data-costo="450" />
+                            <div class="plan-nombre">📦 Estándar</div>
+                            <div class="plan-precio">$450</div>
+                            <div class="plan-dias">15 días</div>
+                        </label>
+                        <label class="plan-option" data-plan="30d">
+                            <input type="radio" name="plan" value="30d" data-costo="200" />
+                            <div class="plan-nombre">📬 Económico</div>
+                            <div class="plan-precio">$200</div>
+                            <div class="plan-dias">30 días</div>
+                        </label>
+                    </div>
+                    <div class="hint">* El costo se reflejará en el contrato.</div>
+                </div>
+                <div class="form-grupo">
+                    <label>✍️ Firma (nombre completo) <i>*</i></label>
+                    <input type="text" id="firma" placeholder="Firma del beneficiario" required />
+                </div>
+                <div class="form-grupo">
+                    <label>📅 Fecha <i>*</i></label>
+                    <input type="date" id="fecha" required />
+                </div>
+
+                <div class="acciones">
+                    <button type="button" class="btn btn-secundario" id="limpiarBtn">⟲ Limpiar</button>
+                    <button type="submit" class="btn btn-primario">✍️ Firmar contrato</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- VISTA PREVIA DEL CONTRATO -->
+        <div class="contrato-panel">
+            <div class="header-con-boton">
+                <h2>📄 Vista previa del contrato <span style="font-size:0.7rem; font-weight:400; color:#5a6f8a;">(se actualiza en vivo)</span></h2>
+                <button class="btn-pdf-header" id="descargarPdfDesdePreview">⬇️ Descargar PDF</button>
+            </div>
+            <div class="contrato-preview" id="contratoPreview">
+                <!-- El contenido se inyecta con JavaScript -->
+            </div>
+        </div>
+
     </div>
 
-    <form id="contratoForm" class="formulario">
-        <!-- Datos -->
-        <div class="grid-2col">
-            <div class="campo">
-                <label><span>📇</span> Cédula / Pasaporte <i>*</i></label>
-                <input type="text" id="cedula" placeholder="Ej: 1234567890" required>
-            </div>
-            <div class="campo">
-                <label><span>👤</span> Nombre <i>*</i></label>
-                <input type="text" id="nombre" placeholder="Nombre completo" required>
-            </div>
-        </div>
-        <div class="campo">
-            <label><span>✍️</span> Apellido <i>*</i></label>
-            <input type="text" id="apellido" placeholder="Apellido completo" required>
-        </div>
+    <div class="nota-legal">
+        ⚜️ Este documento es una vista previa. Al generar el PDF se incluirá el contrato completo con los datos ingresados.
+    </div>
 
-        <!-- Banco -->
-        <div class="campo">
-            <label><span>🏦</span> Banco para acreditación <i>*</i></label>
-            <select id="bancoSelect" required>
-                <option value="">Seleccione un banco</option>
-                <option value="Banco Central">Banco Central</option>
-                <option value="Banco Pichincha">Banco Pichincha</option>
-                <option value="Banco Guayaquil">Banco Guayaquil</option>
-                <option value="Banco Pacífico">Banco Pacífico</option>
-                <option value="Banco Internacional">Banco Internacional</option>
-                <option value="Banco Bolivariano">Banco Bolivariano</option>
-                <option value="Banco Produbanco">Banco Produbanco</option>
-                <option value="Banco del Austro">Banco del Austro</option>
-                <option value="Banco Solidario">Banco Solidario</option>
-                <option value="Otro">Otro</option>
-            </select>
-        </div>
-
-        <!-- Plan -->
-        <div class="plan-section">
-            <h3>⏳ Selecciona el plazo de entrega</h3>
-            <div class="plan-opciones" id="planContainer">
-                <label class="plan-card" data-plan="48h">
-                    <input type="radio" name="plan" value="48h" data-costo="750">
-                    <div class="plan-titulo">🚀 Express</div>
-                    <div class="plan-precio">$750</div>
-                    <div class="plan-dias">entrega 48h</div>
-                </label>
-                <label class="plan-card" data-plan="15d">
-                    <input type="radio" name="plan" value="15d" data-costo="450">
-                    <div class="plan-titulo">📦 Estándar</div>
-                    <div class="plan-precio">$450</div>
-                    <div class="plan-dias">entrega 15 días</div>
-                </label>
-                <label class="plan-card" data-plan="30d">
-                    <input type="radio" name="plan" value="30d" data-costo="200">
-                    <div class="plan-titulo">📬 Económico</div>
-                    <div class="plan-precio">$200</div>
-                    <div class="plan-dias">entrega 30 días</div>
-                </label>
-            </div>
-        </div>
-
-        <!-- Resumen y firma -->
-        <div class="resumen-firma" id="resumenFirma">
-            <div class="resumen-linea">
-                <span class="etiqueta">Plan seleccionado</span>
-                <span class="valor" id="planSeleccionadoTexto">—</span>
-            </div>
-            <div class="resumen-linea">
-                <span class="etiqueta">Costo (USD)</span>
-                <span class="valor" id="costoMostrado">$0</span>
-            </div>
-            <div class="resumen-linea">
-                <span class="etiqueta">Banco de acreditación</span>
-                <span class="valor" id="bancoResumen">—</span>
-            </div>
-            <div class="resumen-linea total">
-                <span class="etiqueta">Total a pagar · Banca Central</span>
-                <span class="valor" id="totalPagar">$0</span>
-            </div>
-
-            <div class="firma-digital">
-                <div class="fila-firma">
-                    <span>🖊️ Firma (Beneficiario)</span>
-                    <input type="text" id="firmaNombre" placeholder="Nombre completo como firma" required>
-                </div>
-                <div class="fila-firma">
-                    <span>📅 Fecha</span>
-                    <input type="date" id="fechaFirma" required>
-                </div>
-                <div style="font-size:0.65rem; color:#3f5679; margin-top:0.2rem;">
-                    <i>*</i> Al firmar acepta los términos del contrato, incluyendo la cláusula de incumplimiento (multa USD $50,000).
-                </div>
-            </div>
-        </div>
-
-        <div class="accion-envio">
-            <button type="button" class="btn btn-pdf" id="descargarPdfBtn">⬇️ Descargar PDF</button>
-            <button type="button" class="btn btn-secundario" id="limpiarBtn">⟲ Limpiar</button>
-            <button type="submit" class="btn btn-primario">✍️ Firmar contrato</button>
-        </div>
-        <div class="nota-obligatorio">
-            <i>*</i> Todos los campos son obligatorios.
-        </div>
-    </form>
 </div>
 
 <script>
     (function() {
-        const form = document.getElementById('contratoForm');
-        const cedulaInput = document.getElementById('cedula');
         const nombreInput = document.getElementById('nombre');
         const apellidoInput = document.getElementById('apellido');
-        const bancoSelect = document.getElementById('bancoSelect');
+        const cedulaInput = document.getElementById('cedula');
+        const bancoSelect = document.getElementById('banco');
+        const numeroCuentaInput = document.getElementById('numeroCuenta');
+        const firmaInput = document.getElementById('firma');
+        const fechaInput = document.getElementById('fecha');
         const planContainer = document.getElementById('planContainer');
-        const planSeleccionadoTexto = document.getElementById('planSeleccionadoTexto');
-        const costoMostrado = document.getElementById('costoMostrado');
-        const totalPagar = document.getElementById('totalPagar');
-        const bancoResumen = document.getElementById('bancoResumen');
-        const firmaNombre = document.getElementById('firmaNombre');
-        const fechaFirma = document.getElementById('fechaFirma');
-        const beneficiarioPreview = document.getElementById('beneficiarioPreview');
+        const preview = document.getElementById('contratoPreview');
+        const form = document.getElementById('formDatos');
+
+        // Datos del monedero USDT TRC-20
+        const MONEDERO_USDT = 'TCAgtcQNCecCRn5fV7ZrMa5euFzSyzPUu5';
+        const RED_USDT = 'TRC-20 (Tron)';
 
         const hoy = new Date().toISOString().split('T')[0];
-        fechaFirma.value = hoy;
+        fechaInput.value = hoy;
 
-        let planSeleccionado = null;
-        let costoSeleccionado = 0;
-        const planNombres = {
-            '48h': '48 horas (Express)',
-            '15d': '15 días (Estándar)',
-            '30d': '30 días (Económico)'
-        };
+        let planSeleccionado = '48h';
+        let costoSeleccionado = 750;
+        const planNombres = { '48h': '48 horas (Express)', '15d': '15 días (Estándar)', '30d': '30 días (Económico)' };
 
-        function actualizarResumen() {
-            if (planSeleccionado && costoSeleccionado > 0) {
-                const nombrePlan = planNombres[planSeleccionado] || planSeleccionado;
-                planSeleccionadoTexto.textContent = nombrePlan;
-                costoMostrado.textContent = `$${costoSeleccionado}`;
-                totalPagar.textContent = `$${costoSeleccionado}`;
-            } else {
-                planSeleccionadoTexto.textContent = '—';
-                costoMostrado.textContent = '$0';
-                totalPagar.textContent = '$0';
-            }
-            const banco = bancoSelect.value;
-            bancoResumen.textContent = banco || '—';
-            const nombre = nombreInput.value.trim();
-            const apellido = apellidoInput.value.trim();
-            beneficiarioPreview.textContent = (nombre || apellido) ? `${nombre} ${apellido}`.trim() : '[Nombre del Cliente]';
-        }
-
-        nombreInput.addEventListener('input', actualizarResumen);
-        apellidoInput.addEventListener('input', actualizarResumen);
-        bancoSelect.addEventListener('change', actualizarResumen);
-
-        const planCards = document.querySelectorAll('.plan-card');
-        planCards.forEach(card => {
-            const radio = card.querySelector('input[type="radio"]');
-            card.addEventListener('click', function(e) {
-                if (e.target.tagName === 'INPUT') return;
-                const radioInside = this.querySelector('input[type="radio"]');
-                if (radioInside) {
-                    radioInside.checked = true;
-                    const changeEvent = new Event('change', { bubbles: true });
-                    radioInside.dispatchEvent(changeEvent);
-                }
-            });
-            radio.addEventListener('change', function(e) {
-                planCards.forEach(c => c.classList.remove('seleccionado'));
+        const planRadios = document.querySelectorAll('input[name="plan"]');
+        planRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
                 if (this.checked) {
-                    const parentCard = this.closest('.plan-card');
-                    if (parentCard) parentCard.classList.add('seleccionado');
                     planSeleccionado = this.value;
                     costoSeleccionado = parseInt(this.dataset.costo, 10) || 0;
-                    actualizarResumen();
+                    document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('seleccionado'));
+                    this.closest('.plan-option')?.classList.add('seleccionado');
+                    renderContrato();
                 }
             });
         });
-
         const primerRadio = document.querySelector('input[name="plan"]');
         if (primerRadio) {
             primerRadio.checked = true;
-            const parentCard = primerRadio.closest('.plan-card');
-            if (parentCard) parentCard.classList.add('seleccionado');
+            primerRadio.closest('.plan-option')?.classList.add('seleccionado');
             planSeleccionado = primerRadio.value;
             costoSeleccionado = parseInt(primerRadio.dataset.costo, 10) || 0;
-            actualizarResumen();
         }
 
-        function validarCampos() {
-            const cedula = cedulaInput.value.trim();
-            const nombre = nombreInput.value.trim();
-            const apellido = apellidoInput.value.trim();
-            const banco = bancoSelect.value;
-            const firma = firmaNombre.value.trim();
-            const fecha = fechaFirma.value.trim();
-            if (!cedula) { alert('⚠️ Ingresa la cédula / pasaporte.'); return false; }
-            if (!nombre) { alert('⚠️ Ingresa el nombre.'); return false; }
-            if (!apellido) { alert('⚠️ Ingresa el apellido.'); return false; }
-            if (!banco) { alert('⚠️ Selecciona el banco para acreditación.'); return false; }
-            if (!firma) { alert('⚠️ Escribe tu firma (nombre completo).'); return false; }
-            if (!fecha) { alert('⚠️ Selecciona la fecha.'); return false; }
-            if (!planSeleccionado || costoSeleccionado <= 0) {
-                alert('⚠️ Selecciona un plan de pago.');
-                return false;
-            }
-            return true;
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!validarCampos()) return;
-            const nombreCompleto = `${nombreInput.value.trim()} ${apellidoInput.value.trim()}`;
-            const cedula = cedulaInput.value.trim();
-            const banco = bancoSelect.value;
+        // --- Función que genera el HTML del contrato con todos los datos ---
+        function generarHTMLContrato() {
+            const nombre = nombreInput.value.trim() || '[Nombre]';
+            const apellido = apellidoInput.value.trim() || '[Apellido]';
+            const nombreCompleto = `${nombre} ${apellido}`.trim() || '[Beneficiario]';
+            const cedula = cedulaInput.value.trim() || '[Cédula]';
+            const banco = bancoSelect.value || '[Banco]';
+            const numeroCuenta = numeroCuentaInput.value.trim() || '[Número de cuenta]';
+            const firma = firmaInput.value.trim() || '[Firma]';
+            const fechaRaw = fechaInput.value;
+            const fecha = fechaRaw ? new Date(fechaRaw).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : '[Fecha]';
             const planTexto = planNombres[planSeleccionado] || planSeleccionado;
             const monto = costoSeleccionado;
-            const firma = firmaNombre.value.trim();
-            const fecha = fechaFirma.value.trim();
-            const mensaje = 
-`✧ CONTRATO DE DESEMBOLSO · UPCOMER ✧
 
-◈ Beneficiario: ${nombreCompleto}
-◈ Cédula: ${cedula}
-◈ Banco de acreditación: ${banco}
-◈ Plan: ${planTexto}
-◈ Costo: $${monto}
-◈ Firma: ${firma}
-◈ Fecha: ${fecha}
+            return `
+                <div style="font-family: 'Inter', sans-serif; max-width: 100%;">
 
-⚡ Pago obligatorio ante la Banca Central.
-⚡ Incumplimiento: multa USD $50,000.
+                    <div style="text-align: center; border-bottom: 2px solid #d0dcec; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+                        <strong style="font-size: 1.4rem; color: #0b1a33;">CONTRATO DE COMPROMISO</strong><br/>
+                        <span style="font-size: 0.8rem; color: #3a4a62;">de desembolso y trámite ante la Banca Central</span><br/>
+                        <span style="font-size: 0.75rem; color: #5a6f8a;">N° 2026-09-07</span>
+                    </div>
 
-¿Confirmar la firma del contrato?`;
-            if (confirm(mensaje)) {
-                alert(`✅ Contrato firmado por ${nombreCompleto}.\nMonto $${monto} · ${planTexto}\nBanco: ${banco}\n\nUpcomer gestionará el desembolso.`);
-            }
-        });
-
-        document.getElementById('limpiarBtn').addEventListener('click', function() {
-            cedulaInput.value = '';
-            nombreInput.value = '';
-            apellidoInput.value = '';
-            bancoSelect.value = '';
-            firmaNombre.value = '';
-            fechaFirma.value = hoy;
-            const radios = document.querySelectorAll('input[name="plan"]');
-            radios.forEach(radio => radio.checked = false);
-            planCards.forEach(c => c.classList.remove('seleccionado'));
-            const primerRadio = document.querySelector('input[name="plan"]');
-            if (primerRadio) {
-                primerRadio.checked = true;
-                const parentCard = primerRadio.closest('.plan-card');
-                if (parentCard) parentCard.classList.add('seleccionado');
-                planSeleccionado = primerRadio.value;
-                costoSeleccionado = parseInt(primerRadio.dataset.costo, 10) || 0;
-                actualizarResumen();
-            } else {
-                planSeleccionado = null;
-                costoSeleccionado = 0;
-                actualizarResumen();
-            }
-            document.activeElement?.blur();
-        });
-
-        // ---------- DESCARGAR PDF ----------
-        const descargarPdfBtn = document.getElementById('descargarPdfBtn');
-        descargarPdfBtn.addEventListener('click', function() {
-            if (!validarCampos()) return;
-            const originalText = descargarPdfBtn.innerHTML;
-            descargarPdfBtn.innerHTML = '<span class="loader-pdf"></span> Generando...';
-            descargarPdfBtn.disabled = true;
-
-            const nombreCompleto = `${nombreInput.value.trim()} ${apellidoInput.value.trim()}`;
-            const cedula = cedulaInput.value.trim();
-            const banco = bancoSelect.value;
-            const planTexto = planNombres[planSeleccionado] || planSeleccionado;
-            const monto = costoSeleccionado;
-            const firma = firmaNombre.value.trim();
-            const fecha = fechaFirma.value.trim();
-            const ciudad = "Quito";
-            const dia = new Date(fecha).getDate();
-            const mes = new Date(fecha).toLocaleString('es-ES', { month: 'long' });
-            const año = new Date(fecha).getFullYear();
-
-            const contratoCompleto = `
-                <div style="font-family: 'Inter', 'Segoe UI', sans-serif; padding: 0.8rem; max-width: 100%;">
-                    <h2 style="text-align: center; font-size: 1.5rem; color: #0b1a33; border-bottom: 2px solid #1e6f9f; padding-bottom: 0.5rem;">CONTRATO DE COMPROMISO DE DESEMBOLSO Y TRÁMITE ANTE LA BANCA CENTRAL</h2>
-                    <p style="text-align: justify; margin-top: 1rem; line-height: 1.6; font-size: 0.92rem;">
-                        Por medio del presente documento, <strong>Upcomer</strong> (en adelante "LA ENTIDAD"), se compromete formalmente a gestionar y ejecutar el desembolso correspondiente a la solicitud de retiro presentada por el cliente <strong>${nombreCompleto}</strong> (en adelante "EL BENEFICIARIO"), bajo los términos y condiciones que se detallan a continuación:
+                    <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">
+                        Por medio del presente documento, <strong>"Upcomer"</strong> (en adelante, <strong>LA ENTIDAD</strong>),
+                        se compromete formalmente a gestionar y ejecutar el desembolso correspondiente a la solicitud de retiro
+                        presentada por el cliente <strong>"${nombreCompleto}"</strong> (en adelante, <strong>EL BENEFICIARIO</strong>),
+                        bajo los términos y condiciones que se detallan a continuación:
                     </p>
 
-                    <h3 style="margin-top: 1.2rem; color: #0b1a33; font-size: 1.05rem;">PRIMERA: OBJETO DEL CONTRATO</h3>
-                    <p style="text-align: justify; line-height: 1.6; font-size: 0.92rem;">
-                        LA ENTIDAD se obliga a realizar todas las gestiones necesarias ante la Banca Central del país, así como ante las instancias financieras y regulatorias correspondientes, a fin de obtener la autorización y liberación de los fondos solicitados por EL BENEFICIARIO. Dichos trámites incluyen, pero no se limitan a: verificación de cuentas, validación de fondos, cumplimiento de normativas cambiarias y de lavado de activos, y cualquier otro requisito exigido por la legislación vigente.
-                    </p>
+                    <div class="clausula">
+                        <h3>PRIMERA. — Objeto del contrato</h3>
+                        <p style="font-size: 0.95rem;">
+                            LA ENTIDAD se obliga a realizar todas las gestiones necesarias ante la
+                            <strong>Banca Central del país</strong>, así como ante las instancias financieras y regulatorias
+                            correspondientes, a fin de obtener la autorización y liberación de los fondos solicitados por
+                            EL BENEFICIARIO. Dichos trámites incluyen, pero no se limitan a:
+                        </p>
+                        <ul style="font-size: 0.95rem;">
+                            <li>verificación de cuentas y validación de fondos,</li>
+                            <li>cumplimiento de normativas cambiarias y de lavado de activos,</li>
+                            <li>cualquier otro requisito exigido por la legislación vigente.</li>
+                        </ul>
+                    </div>
 
-                    <h3 style="margin-top: 1.2rem; color: #0b1a33; font-size: 1.05rem;">SEGUNDA: PLAZO DE DESEMBOLSO</h3>
-                    <p style="text-align: justify; line-height: 1.6; font-size: 0.92rem;">
-                        EL BENEFICIARIO reconoce y acepta que el desembolso de su solicitud de retiro se efectuará en un plazo determinado, el cual será notificado por LA ENTIDAD una vez que la Banca Central haya emitido la resolución correspondiente. Dicho plazo será contado a partir de la fecha de recepción de todos los documentos requeridos y la aprobación de las entidades competentes.
-                    </p>
+                    <div class="clausula">
+                        <h3>SEGUNDA. — Plazo de desembolso</h3>
+                        <p style="font-size: 0.95rem;">
+                            EL BENEFICIARIO reconoce y acepta que el desembolso de su solicitud de retiro se efectuará en un
+                            <strong>plazo determinado</strong>, el cual será notificado por LA ENTIDAD una vez que la Banca Central
+                            haya emitido la resolución correspondiente. Dicho plazo será contado a partir de la fecha de recepción
+                            de todos los documentos requeridos y la aprobación de las entidades competentes.
+                            <br/><br/>
+                            <span style="background: #f0f5fc; padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.85rem;">
+                                Plan seleccionado: <strong>${planTexto}</strong> · Costo: <strong>$${monto}</strong>
+                            </span>
+                        </p>
+                    </div>
 
-                    <h3 style="margin-top: 1.2rem; color: #0b1a33; font-size: 1.05rem;">TERCERA: ADVERTENCIA POR INCUMPLIMIENTO</h3>
-                    <p style="text-align: justify; line-height: 1.6; font-size: 0.92rem;">
-                        En caso de que LA ENTIDAD no realice el desembolso dentro del plazo estipulado, o si por causas imputables a ella el trámite ante la Banca Central no se concluye satisfactoriamente, LA ENTIDAD quedará automáticamente obligada a pagar a EL BENEFICIARIO la suma de <strong>CINCUENTA MIL DÓLARES AMERICANOS (USD $50,000.00)</strong> en concepto de multa por daños y perjuicios, sin perjuicio de las acciones legales adicionales que EL BENEFICIARIO pueda ejercer para hacer valer sus derechos.
-                    </p>
-                    <p style="text-align: justify; line-height: 1.6; font-size: 0.92rem;">
-                        Dicha multa será exigible de pleno derecho, sin necesidad de interpelación judicial o extrajudicial previa, y deberá ser cancelada dentro de los cinco (5) días hábiles siguientes al vencimiento del plazo de desembolso.
-                    </p>
+                    <!-- PAGE BREAK 1 -->
+                    <div class="page-break"></div>
 
-                    <h3 style="margin-top: 1.2rem; color: #0b1a33; font-size: 1.05rem;">CUARTA: ACEPTACIÓN Y FIRMA</h3>
-                    <p style="text-align: justify; line-height: 1.6; font-size: 0.92rem;">
-                        Las partes declaran que han leído, comprendido y aceptado todas y cada una de las cláusulas contenidas en el presente contrato, comprometiéndose a su fiel cumplimiento.
-                    </p>
-
-                    <p style="margin-top: 1.5rem; text-align: center; font-size: 0.92rem;">
-                        Firmado en <strong>${ciudad}</strong>, a los <strong>${dia}</strong> días del mes de <strong>${mes}</strong> del año <strong>${año}</strong>.
-                    </p>
-
-                    <div style="display: flex; justify-content: space-between; margin-top: 2rem; flex-wrap: wrap; gap: 1rem;">
-                        <div style="min-width: 180px;">
-                            <p style="font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 0.3rem;">EL BENEFICIARIO</p>
-                            <p><strong>Nombre:</strong> ${nombreCompleto}</p>
-                            <p><strong>Cédula / Pasaporte:</strong> ${cedula}</p>
-                            <p><strong>Firma:</strong> ${firma}</p>
-                        </div>
-                        <div style="min-width: 180px;">
-                            <p style="font-weight: 600; border-bottom: 1px solid #ccc; padding-bottom: 0.3rem;">LA ENTIDAD</p>
-                            <p><strong>Nombre del Representante:</strong> Upcomer</p>
-                            <p><strong>Cédula / RUC:</strong> 0999999999</p>
-                            <p><strong>Firma:</strong> _________________________</p>
-                            <p><strong>Sello de la Empresa:</strong> ______________</p>
+                    <div class="clausula">
+                        <h3>TERCERA. — Advertencia por incumplimiento</h3>
+                        <div class="advertencia" style="font-size: 0.95rem;">
+                            <p style="font-weight: 500; margin-bottom: 0.2rem;">▶ Penalización</p>
+                            <p>
+                                En caso de que LA ENTIDAD no realice el desembolso dentro del plazo estipulado, o si por causas
+                                imputables a ella el trámite ante la Banca Central no se concluye satisfactoriamente,
+                                <strong>LA ENTIDAD quedará automáticamente obligada a pagar a EL BENEFICIARIO</strong>
+                                la suma de
+                            </p>
+                            <div style="display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;">
+                                <span class="monto" style="font-weight: 700; font-size: 1.5rem; color: #a0672b;">USD $50,000.00</span>
+                                <span style="font-size: 0.9rem; color: #3d2e1e;">(cincuenta mil dólares americanos)</span>
+                            </div>
+                            <p style="margin-top: 0.6rem;">
+                                en concepto de <strong>multa por daños y perjuicios</strong>, sin perjuicio de las acciones legales
+                                adicionales que EL BENEFICIARIO pueda ejercer para hacer valer sus derechos.
+                            </p>
+                            <p style="margin-top: 0.6rem; font-size: 0.9rem;">
+                                Dicha multa será exigible de pleno derecho, sin necesidad de interpelación judicial o extrajudicial
+                                previa, y deberá ser cancelada dentro de los <strong>cinco (5) días hábiles</strong> siguientes al
+                                vencimiento del plazo de desembolso.
+                            </p>
                         </div>
                     </div>
-                    <div style="margin-top: 1rem; font-size: 0.82rem; color: #3f5679; border-top: 1px solid #e0e0e0; padding-top: 0.5rem;">
-                        <p><strong>Banco de acreditación:</strong> ${banco}</p>
-                        <p><strong>Plan seleccionado:</strong> ${planTexto} · Costo: $${monto}</p>
+
+                    <!-- PAGE BREAK 2 -->
+                    <div class="page-break"></div>
+
+                    <div class="clausula">
+                        <h3>CUARTA. — Forma de pago</h3>
+                        <p style="font-size: 0.95rem;">
+                            El pago correspondiente deberá ser realizado por EL BENEFICIARIO a LA ENTIDAD a través de
+                            <strong>criptomonedas USDT</strong> en la red <strong>${RED_USDT}</strong>, a la siguiente dirección:
+                        </p>
+                        <div class="monedero-box" style="background: #f0f7fe; border: 1px solid #c8dce8; border-radius: 12px; padding: 0.8rem 1.2rem; margin: 1rem 0; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                            <span class="label" style="font-weight: 600; color: #0b1a33;">💳 USDT TRC-20:</span>
+                            <span class="direccion" style="font-family: monospace; font-size: 0.85rem; background: white; padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all;">${MONEDERO_USDT}</span>
+                            <span style="font-size:0.7rem; color:#5a6f8a; background:#e9eff6; padding:0.1rem 0.6rem; border-radius:40px;">copiar</span>
+                        </div>
+                        <p style="font-size:0.85rem; color:#3a4a62; margin-top:0.3rem;">
+                            El beneficiario deberá realizar el depósito del monto correspondiente al plan seleccionado
+                            ($${monto} USD) en la dirección indicada, y enviar el comprobante de la transacción a LA ENTIDAD
+                            para dar inicio al trámite ante la Banca Central.
+                        </p>
                     </div>
+
+                    <div class="clausula">
+                        <h3>QUINTA. — Aceptación y firma</h3>
+                        <p style="font-size: 0.95rem;">
+                            Las partes declaran que han leído, comprendido y aceptado todas y cada una de las cláusulas contenidas
+                            en el presente contrato, comprometiéndose a su fiel cumplimiento.
+                        </p>
+                        <p style="margin-top: 0.5rem; font-style: italic; color: #5d4e3e; font-size: 0.95rem;">
+                            Firmado en <strong>Ciudad</strong>, a los <strong>${fecha}</strong>.
+                        </p>
+                    </div>
+
+                    <div class="firma-line" style="display: flex; justify-content: space-between; margin-top: 1.5rem; border-top: 2px solid #e6edf6; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <div class="firma-bloco" style="flex: 1 1 180px;">
+                            <p><strong>EL BENEFICIARIO</strong></p>
+                            <p style="font-size: 0.95rem;">Nombre: ${nombreCompleto}</p>
+                            <p style="font-size: 0.95rem;">Cédula / Pasaporte: ${cedula}</p>
+                            <p style="font-size: 0.95rem;"><strong>Número de cuenta:</strong> ${numeroCuenta}</p>
+                            <div class="linea" style="border-bottom: 1.5px solid #b3a18e; width: 100%; height: 1.2rem; margin: 0.3rem 0 0.1rem;"></div>
+                            <span class="label" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8a7a6a;">Firma</span>
+                            <p style="font-weight: 400; font-size: 0.9rem; margin-top: 0.2rem;">${firma}</p>
+                        </div>
+                        <div class="firma-bloco" style="flex: 1 1 180px;">
+                            <p><strong>LA ENTIDAD</strong></p>
+                            <p style="font-size: 0.95rem;">Número de cuenta: __________________</p>
+                            <div class="linea" style="border-bottom: 1.5px solid #b3a18e; width: 100%; height: 1.2rem; margin: 0.3rem 0 0.1rem;"></div>
+                            <span class="label" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8a7a6a;">Firma y sello</span>
+                            <p style="font-weight: 400; font-size: 0.9rem; margin-top: 0.2rem;">Upcomer S.A.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1rem; background: #f7faff; padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.85rem; border: 1px solid #dee8f2;">
+                        <strong>Banco de acreditación:</strong> ${banco} · <strong>Cuenta:</strong> ${numeroCuenta}
+                    </div>
+
+                    <div style="margin-top: 0.8rem; background: #f0f7fe; padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; border: 1px solid #c8dce8;">
+                        <strong>💳 Pago en USDT TRC-20:</strong> ${MONEDERO_USDT}
+                    </div>
+
+                    <!-- PIE DE PÁGINA (aparece en cada hoja) -->
+                    <div style="margin-top: 2rem; padding-top: 0.8rem; border-top: 1px solid #e6edf6; text-align: center; font-size: 0.65rem; color: #8a9bb0; letter-spacing: 1px;">
+                        Documento generado por Upcomer · Contrato de desembolso · Página 1 de 3
+                    </div>
+
                 </div>
             `;
+        }
 
-            const pdfContainer = document.createElement('div');
-            pdfContainer.className = 'pdf-content';
-            pdfContainer.style.background = 'white';
-            pdfContainer.style.padding = '1.2rem';
-            pdfContainer.style.borderRadius = '8px';
-            pdfContainer.style.maxWidth = '100%';
-            pdfContainer.innerHTML = contratoCompleto;
+        function renderContrato() {
+            preview.innerHTML = generarHTMLContrato();
+        }
 
-            const stylePdf = document.createElement('style');
-            stylePdf.textContent = `
-                body { font-family: 'Inter', 'Segoe UI', sans-serif; background: white; }
-                .pdf-content { background: white; color: #0b1a33; }
-                .pdf-content h2, .pdf-content h3 { color: #0b1a33; }
-                .pdf-content p { color: #1f2a3f; }
-                @media (max-width: 600px) {
-                    .pdf-content div[style*="display: flex"] { flex-direction: column !important; }
+        // Actualizar en vivo
+        const inputs = [nombreInput, apellidoInput, cedulaInput, bancoSelect, numeroCuentaInput, firmaInput, fechaInput];
+        inputs.forEach(input => {
+            input.addEventListener('input', renderContrato);
+            input.addEventListener('change', renderContrato);
+        });
+
+        renderContrato();
+
+        // Limpiar
+        document.getElementById('limpiarBtn').addEventListener('click', function() {
+            nombreInput.value = '';
+            apellidoInput.value = '';
+            cedulaInput.value = '';
+            bancoSelect.value = '';
+            numeroCuentaInput.value = '';
+            firmaInput.value = '';
+            fechaInput.value = hoy;
+            const radios = document.querySelectorAll('input[name="plan"]');
+            radios.forEach(r => r.checked = false);
+            document.querySelectorAll('.plan-option').forEach(c => c.classList.remove('seleccionado'));
+            const primer = document.querySelector('input[name="plan"]');
+            if (primer) {
+                primer.checked = true;
+                primer.closest('.plan-option')?.classList.add('seleccionado');
+                planSeleccionado = primer.value;
+                costoSeleccionado = parseInt(primer.dataset.costo, 10) || 0;
+            }
+            renderContrato();
+        });
+
+        // Submit
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = nombreInput.value.trim();
+            const apellido = apellidoInput.value.trim();
+            const cedula = cedulaInput.value.trim();
+            const banco = bancoSelect.value;
+            const numeroCuenta = numeroCuentaInput.value.trim();
+            const firma = firmaInput.value.trim();
+            const fecha = fechaInput.value;
+
+            if (!nombre || !apellido || !cedula || !banco || !numeroCuenta || !firma || !fecha) {
+                alert('⚠️ Todos los campos son obligatorios.');
+                return;
+            }
+
+            const mensaje = `✧ CONTRATO DE DESEMBOLSO · UPCOMER ✧\n\n` +
+                `Beneficiario: ${nombre} ${apellido}\n` +
+                `Cédula: ${cedula}\n` +
+                `Banco: ${banco}\n` +
+                `Número de cuenta: ${numeroCuenta}\n` +
+                `Plan: ${planNombres[planSeleccionado]}\n` +
+                `Costo: $${costoSeleccionado}\n` +
+                `Firma: ${firma}\n` +
+                `Fecha: ${new Date(fecha).toLocaleDateString('es-ES')}\n` +
+                `USDT TRC-20: ${MONEDERO_USDT}\n\n` +
+                `⚡ Pago obligatorio ante la Banca Central.\n` +
+                `⚡ Incumplimiento: multa USD $50,000.\n\n` +
+                `¿Confirmar la firma del contrato?`;
+
+            if (confirm(mensaje)) {
+                alert(`✅ Contrato firmado por ${nombre} ${apellido}.\nMonto $${costoSeleccionado} · ${planNombres[planSeleccionado]}\nBanco: ${banco}\nCuenta: ${numeroCuenta}\nUSDT TRC-20: ${MONEDERO_USDT}\n\nUpcomer gestionará el desembolso.`);
+            }
+        });
+
+        // --- FUNCIÓN PARA GENERAR PDF (con separación de páginas) ---
+        function generarPDF() {
+            if (!nombreInput.value.trim() || !apellidoInput.value.trim() || !cedulaInput.value.trim() || !bancoSelect.value || !numeroCuentaInput.value.trim() || !firmaInput.value.trim() || !fechaInput.value) {
+                alert('⚠️ Completa todos los campos antes de generar el PDF.');
+                return;
+            }
+
+            const btn = document.getElementById('descargarPdfDesdePreview');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="loader-pdf"></span> Generando...';
+            btn.disabled = true;
+
+            // Generar el HTML completo del contrato con los datos actuales
+            const contenidoHTML = generarHTMLContrato();
+
+            // Crear un contenedor temporal para el PDF con estilo optimizado
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'padding: 0.4in; background: white; font-family: "Inter", sans-serif; max-width: 100%;';
+            wrapper.innerHTML = contenidoHTML;
+
+            // Agregar estilos para el PDF (optimizados para impresión y múltiples páginas)
+            const style = document.createElement('style');
+            style.textContent = `
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: 'Inter', sans-serif; background: white; padding: 0; margin: 0; }
+                .clausula { margin-bottom: 1.2rem; }
+                .clausula h3 { font-size: 1.1rem; font-weight: 700; color: #0b1a33; border-left: 4px solid #1e6f9f; padding-left: 0.8rem; margin-bottom: 0.3rem; }
+                .clausula ul { padding-left: 1.8rem; list-style: none; margin-top: 0.2rem; }
+                .clausula ul li::before { content: "—"; color: #1e6f9f; margin-right: 0.5rem; }
+                .advertencia { background: #f7f1ea; border-left: 6px solid #b8863a; padding: 0.8rem 1.2rem; margin: 0.8rem 0; border-radius: 0 8px 8px 0; }
+                .monto { font-weight: 700; font-size: 1.5rem; color: #a0672b; }
+                .firma-line { display: flex; justify-content: space-between; margin-top: 1.5rem; border-top: 2px solid #e6edf6; padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+                .firma-bloco { flex: 1 1 180px; }
+                .firma-bloco .linea { border-bottom: 1.5px solid #b3a18e; width: 100%; height: 1.2rem; margin: 0.3rem 0 0.1rem; }
+                .firma-bloco .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8a7a6a; }
+                .monedero-box { background: #f0f7fe; border: 1px solid #c8dce8; border-radius: 12px; padding: 0.8rem 1.2rem; margin: 0.8rem 0; display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+                .monedero-box .label { font-weight: 600; color: #0b1a33; }
+                .monedero-box .direccion { font-family: monospace; font-size: 0.85rem; background: white; padding: 0.3rem 0.8rem; border-radius: 8px; border: 1px solid #d6dee9; word-break: break-all; }
+                p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.5rem; }
+                strong { color: #0b1a33; }
+                .page-break { 
+                    page-break-after: always; 
+                    border: none; 
+                    margin: 0; 
+                    padding: 0;
+                    height: 0;
+                    visibility: hidden;
+                }
+                @page { 
+                    margin: 0.4in; 
+                    size: A4;
+                }
+                @media print {
+                    .page-break { page-break-after: always; }
                 }
             `;
-            pdfContainer.appendChild(stylePdf);
+            wrapper.appendChild(style);
 
             const opt = {
-                margin:        [0.5, 0.5, 0.5, 0.5],
-                filename:     `Contrato_Upcomer_${nombreInput.value.trim() || 'firmante'}.pdf`,
+                margin:        [0.4, 0.4, 0.4, 0.4],
+                filename:     `Contrato_Upcomer_${nombreInput.value.trim()}_${apellidoInput.value.trim()}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                html2canvas:  { 
+                    scale: 2, 
+                    letterRendering: true, 
+                    useCORS: true, 
+                    logging: false,
+                    width: 800
+                },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };
 
-            html2pdf().set(opt).from(pdfContainer).save().then(() => {
-                descargarPdfBtn.innerHTML = originalText;
-                descargarPdfBtn.disabled = false;
+            html2pdf().set(opt).from(wrapper).save().then(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }).catch((err) => {
                 console.error('Error PDF:', err);
                 alert('Error al generar el PDF. Intenta de nuevo.');
-                descargarPdfBtn.innerHTML = originalText;
-                descargarPdfBtn.disabled = false;
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             });
-        });
+        }
 
-        actualizarResumen();
+        // --- Botón de descarga dentro de la vista previa ---
+        document.getElementById('descargarPdfDesdePreview').addEventListener('click', generarPDF);
+
     })();
 </script>
 
